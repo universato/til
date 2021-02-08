@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja"></html>
+
+<head>
+  <title>Deep Numbers</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Array 2D</h1>
+    <div>{{ arraySize }}</div>
+
+    <ul>
+      <li v-for="numbers of numberMatrix">
+        <span v-for="number of numbers">{{ number }}</span>
+      </li>
+    </ul>
+
+    <div>{{ numberMatrix }}</div>
+    <input v-model="arraySize" type="number">
+    <div>{{ arraySize }}</div>
+  </div>
+
+  <script>
+    function randomInt(max = 10) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    const app = Vue.createApp({
+      data(){
+        return {
+          arraySize: 100,
+          numberMatrixs: [],
+        }
+      },
+      created(){
+        this.arraySize = 95
+
+        m = new Array;
+        rowSize = 10
+        colSize = 10;
+
+        cnt = 0
+        for(let i = 0; i < rowSize; i++){
+          a = new Array;
+          for(let j = 0; j < colSize; j++){
+            a[j] = randomInt(10);
+            cnt++;
+            if(cnt == this.arraySize){
+              break;
+            }
+          }
+          m[i] = a;
+        }
+
+        this.numberMatrix = m;
+      },
+      methods: {
+        change(number, index){
+          this.numbers[index] = parseInt(number)
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

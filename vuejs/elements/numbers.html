@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja"></html>
+
+<head>
+  <title>Deep Numbers</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Deep Number</h1>
+    <ul>
+      <li v-for="(number, index) of numbers">
+        <input v-model="number" type="number" @change="change(number, index)" @click="change(number, index)" min="0" max="9">
+        <input v-model="number" type="number">
+      </li>
+
+    </ul>
+
+    <div>{{ numbers }}</div>
+    <input v-model="oneNumber" type="number">
+    <div>{{ oneNumber }}</div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          oneNumber: 1,
+          numbers: [Number(0), 1, 2, 3, 4],
+        }
+      },
+      methods: {
+        change(number, index){
+          // console.log(number)
+          this.numbers[index] = parseInt(number)
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

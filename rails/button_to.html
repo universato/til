@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>button_to</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css">
+</head>
+
+<body>
+
+  <h1>button_to</h1>
+  <a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to">Rails API</a>
+
+  <p>
+    <pre><%= button_to "New", action: "new" %></pre>
+    <form method="post" action="/controller/new" class="button_to">
+      <input value="New" type="submit" />
+    </form>
+  </p>
+  <br><br><br>
+
+  <p>
+    <pre><%= button_to "New", new_article_path %></pre>
+    <form method="post" action="/articles/new" class="button_to">
+      <input value="New" type="submit" />
+    </form>
+  </p>
+  <br>
+  <p>
+<pre>
+<%= button_to [:make_happy, @user] do %>
+  Make happy <strong><%= @user.name %></strong>
+<% end %>
+</pre>
+
+    <form method="post" action="/users/1/make_happy" class="button_to">
+      <button type="submit">
+        Make happy <strong><%= @user.name %></strong>
+      </button>
+    </form>
+  </p>
+  <br>
+  <p>
+    <pre><%= button_to "New", { action: "new" }, form_class: "new-thing" %></pre>
+    <form method="post" action="/controller/new" class="new-thing">
+      <input value="New" type="submit" />
+    </form>
+  </p>
+  <br>
+  <p>
+  <!-- <%= button_to "Create", { action: "create" }, remote: true, form: { "data-type" => "json" } %> -->
+  <pre><%= button_to "Create", { action: "create" }, remote: true, form: { "data-type" => "json" } %></pre>
+    <form method="post" action="/images/create" class="button_to" data-remote="true" data-type="json">
+      <input value="Create" type="submit" />
+      <input name="authenticity_token" type="hidden" value="10f2163b45388899ad4d5ae948988266befcb6c3d1b2451cf657a0c293d605a6"/>
+    </form>
+</p>
+<br>
+<p>
+<pre>
+<%= button_to "Delete Image", { action: "delete", id: @image.id },
+                                method: :delete, data: { confirm: "Are you sure?" } %>
+</pre>
+  <form method="post" action="/images/delete/1" class="button_to">
+      <input type="hidden" name="_method" value="delete" />
+      <input data-confirm='Are you sure?' value="Delete Image" type="submit" />
+      <input name="authenticity_token" type="hidden" value="10f2163b45388899ad4d5ae948988266befcb6c3d1b2451cf657a0c293d605a6"/>
+  </form>
+</p>
+<br>
+<p>
+<pre>
+<%= button_to('Destroy', 'http://www.example.com',
+          method: :delete, remote: true, data: { confirm: 'Are you sure?', disable_with: 'loading...' }) %>
+</pre>
+  <form class='button_to' method='post' action='http://www.example.com' data-remote='true'>
+      <input name='_method' value='delete' type='hidden' />
+      <input value='Destroy' type='submit' data-disable-with='loading...' data-confirm='Are you sure?' />
+      <input name="authenticity_token" type="hidden" value="10f2163b45388899ad4d5ae948988266befcb6c3d1b2451cf657a0c293d605a6"/>
+  </form>
+</p>
+</body>
+
+</html>

@@ -1,17 +1,23 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FooComponent msg="Welcome to Your Vue.js App"/>
+    <FirstComponent @onClick="changeColor" :color="color"/> // color変更処理を渡す
+    <SecondComponent @onClick="changeColor" :color="color"/> // colorを渡す!!!!!!!!!
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FirstComponent from './components/FirstComponent.vue'
+import SecondComponent from './components/SecondComponent.vue'
+import FooComponent from './components/FooComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FooComponent,
+    FirstComponent,
+    SecondComponent,
   }
 }
 </script>

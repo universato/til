@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>link_to</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css">
+</head>
+
+<body>
+
+  <h1>link_to</h1>
+  <a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to">Rails API</a>
+
+  <pre>link_to "Profile", profile_path(@profile)</pre>
+  # => <a href="/profiles/1">Profile</a>
+  or the even pithier
+
+  <br><br><br>
+
+  <pre>link_to "Profile", @profile</pre>
+  # => <a href="/profiles/1">Profile</a>
+  in place of the older more verbose, non-resource-oriented
+  <br><br><br>
+
+  <pre>link_to "Profile", controller: "profiles", action: "show", id: @profile</pre>
+  # => <a href="/profiles/show/1">Profile</a>
+  Similarly,
+  <br><br><br>
+
+  <pre>link_to "Profiles", profiles_path</pre>
+  # => <a href="/profiles">Profiles</a>
+  is better than
+
+  <br><br><br>
+
+  <pre>
+  link_to "Profiles", controller: "profiles"</pre>
+  # => <a href="/profiles">Profiles</a>
+  When name is nil the href is presented instead
+
+  <br><br><br>
+
+  <pre>link_to nil, "http://example.com"</pre>
+  # => <a href="http://www.example.com">http://www.example.com</a>
+  You can use a block as well if your link target is hard to fit into the name parameter. ERB example:
+  <br><br>
+
+  <pre>
+  <%= link_to(@profile) do %>
+    <strong><%= @profile.name %></strong> -- <span>Check it out!</span>
+  <% end %>
+</pre>
+  # => <a href="/profiles/1">
+         <strong>David</strong> -- <span>Check it out!</span>
+       </a>
+  Classes and ids for CSS are easy to produce:
+
+  <br><br>
+
+  <pre>
+  link_to "Articles", articles_path, id: "news", class: "article"
+</pre>
+  # => <a href="/articles" class="article" id="news">Articles</a>
+  Be careful when using the older argument style, as an extra literal hash is needed:
+  <br><br>
+  <pre>
+  link_to "Articles", { controller: "articles" }, id: "news", class: "article"</pre>
+  # => <a href="/articles" class="article" id="news">Articles</a>
+  Leaving the hash off gives the wrong link:
+
+  <br>
+  <pre>link_to "WRONG!", controller: "articles", id: "news", class: "article"</pre>
+  # => <a href="/articles/index/news?class=article">WRONG!</a>
+  link_to can also produce links with anchors or query strings:
+  <br><br>
+  <pre>
+  link_to "Comment wall", profile_path(@profile, anchor: "wall")
+</pre>
+  # => <a href="/profiles/1#wall">Comment wall</a>
+  <br><br>
+  <pre>
+  link_to "Ruby on Rails search", controller: "searches", query: "ruby on rails"
+</pre>
+  # => <a href="/searches?query=ruby+on+rails">Ruby on Rails search</a>
+  <br><br>
+  <pre>
+  link_to "Nonsense search", searches_path(foo: "bar", baz: "quux")
+  # => <a href="/searches?foo=bar&baz=quux">Nonsense search</a>
+</pre>
+  The only option specific to link_to (:method) is used as follows:
+  <br><br>
+  <pre>
+  link_to("Destroy", "http://www.example.com", method: :delete)
+</pre>
+  # => <a href='http://www.example.com' rel="nofollow" data-method="delete">Destroy</a>
+
+  You can also use custom data attributes using the :data option:
+  <br><br>
+  <pre>
+  link_to "Visit Other Site", "http://www.rubyonrails.org/", data: { confirm: "Are you sure?" }
+</pre>
+  # => <a href="http://www.rubyonrails.org/" data-confirm="Are you sure?">Visit Other Site</a>
+  Also you can set any link attributes such as target, rel, type:
+<br><br>
+  <pre>
+  link_to "External link", "http://www.rubyonrails.org/", target: "_blank", rel: "nofollow"
+</pre>
+  # => <a href="http://www.rubyonrails.org/" target="_blank" rel="nofollow">External link</a>
+</body>
+
+</html>

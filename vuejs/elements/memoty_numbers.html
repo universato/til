@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Deep Numbers</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <ul>
+      <li v-for="number of numbers">
+        <input v-model="number" type="number">
+      </li>
+    </ul>
+
+    <div>{{ numbers }}</div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          numbers: [0, 1, 2, 3, 4],
+        }
+      },
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

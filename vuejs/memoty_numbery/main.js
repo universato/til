@@ -15,6 +15,8 @@ function newMatrix(row, col) {
 let app = Vue.createApp({
   data(){
     return {
+      env: 'develop',
+      gameState: 'awaitTime',
       arraySize: 99,
       colSize: 10,
       randomNumbers: [],
@@ -22,6 +24,12 @@ let app = Vue.createApp({
       randomMatrix: [],
       recallMatrix: [],
       countDown: 60,
+      preparationMinutes: 1,
+      preparationSecond: 0,
+      memoryMinutes: 1,
+      memorySecond: 0,
+      recallMinutes: 1,
+      recallSecond: 0,
       memoryTimer: null,
       recallTimer: null,
       onMemoryTime: true,
@@ -39,17 +47,20 @@ let app = Vue.createApp({
     this.recallMatrix = newMatrix(row, this.colSize);
     console.log(this.recallMatrix)
 
-    this.countDown = 10;
+    this.countDown = this.memoryTime();
+    this.gameState = "memoryTime"
     this.memoryTimer = setInterval(() => {
       this.countDown--;
       if(this.countDown === 0){
         this.onMemoryTime = false;
         this.onRecallTime = true;
+        this.gameState = "recallTime"
         clearInterval(this.memoryTimer);
         this.countDown = 10;
         this.recallTimer = setInterval(() => {
           this.countDown--;
           if(this.countDown === 0){
+            this.gameState = "resultTime"
             this.onRecallTime = false;
           }
         }, 1000)
@@ -86,9 +97,48 @@ let app = Vue.createApp({
       }
     },
     start(){
+      this.arraySize = 99
+      this.shuffleNumbers(this.arraySize);
+      this.recallNumbers = new Array(this.arraySize)
 
+      this.shuffleMatrix();
+      row = Math.ceil(this.arraySize / this.colSize);
+
+      this.recallMatrix = newMatrix(row, this.colSize);
+      console.log(this.recallMatrix)
+
+      this.countDown = 10;
+      this.gameState = "memoryTime"
+      this.memoryTimer = setInterval(() => {
+        this.countDown--;
+        if(this.countDown === 0){
+          this.onMemoryTime = false;
+          this.onRecallTime = true;
+          this.gameState = "recallTime"
+          clearInterval(this.memoryTimer);
+          this.countDown = 10;
+          this.recallTimer = setInterval(() => {
+            this.countDown--;
+            if(this.countDown === 0){
+              this.gameState = "resultTime"
+              this.onRecallTime = false;
+            }
+          }, 1000)
+        }
+      }, 1000)
     },
     reset(){
+      this.gameState = "settingTime";
+      clearInterval(this.timer)
+      clearInterval(this.memoryTimer)
+      clearInterval(this.recallTimer)
+    },
+    reload(){
+      location.href = location.href
+    },
+    restart(){
+      if(this.env === 'develop'){ console.log("restrt()") }
+      this.gameState = "memoryTime"
       this.onRecallTime = false
       clearInterval(this.recallTimer)
       clearInterval(this.memoryTimer)
@@ -102,7 +152,8 @@ let app = Vue.createApp({
       this.recallMatrix = newMatrix(row, this.colSize);
       // console.log(this.recallMatrix)
 
-      this.countDown = 10;
+      this.countDown = this.memoryTime();
+      // console.log(this.memoryTime());
       this.onMemoryTime = 10;
       this.memoryTimer = setInterval(() => {
         this.countDown--;
@@ -121,16 +172,18 @@ let app = Vue.createApp({
       }, 1000)
     },
     endMemory(){
-      // console.log("end Memory()")
+      if(this.env === 'develop'){ console.log("end Memory()") }
       this.onMemoryTime = false;
       this.onRecallTime = true;
+      this.gameState = "recallTime";
 
-      this.countDown = 10;
+      this.countDown = this.recallTime();
       clearInterval(this.memoryTimer)
       this.recallTimer = setInterval(() => {
         this.countDown--;
         if(this.countDown === 0){
           this.onRecallTime = false;
+          this.gameState = "resultTime";
         }
       }, 1000)
 
@@ -138,6 +191,7 @@ let app = Vue.createApp({
     endRecall(){
       // console.log("end Recall()")
       this.countDown = 0;
+      this.gameState = "resultTime";
       this.onRecallTime = false;
     },
     change(number, index){
@@ -181,7 +235,18 @@ let app = Vue.createApp({
         }
       }
       return numberOfMatch;
+    },
+    preparationTime(){
+      return Number(this.preparationMinutes * 60) + Number(this.preparationSecond)
+    },
+    memoryTime(){
+      return Number(this.memoryMinutes * 60) + Number(this.memorySecond)
+    },
+    recallTime(){
+      return Number(this.recallMinutes * 60) + Number(this.recallSecond)
     }
+  },
+  computed: {
   }
 })
 
@@ -194,13 +259,13 @@ console.log("main.js ends")
 // RecallTime
 // Result
 
-// start
+// start // 設定画面
 // ↓ カウントダウン開始
-// preparationTime(終了ボタン→)
+// preparationTime(終了ボタン)
 // ↓ カウントダウン開始
-// MemoryTime(終了ボタン→)
+// MemoryTime(終了ボタン)
 // ↓ カウントダウン開始
-// RecallTime(終了ボタン→)
+// RecallTime(終了ボタン)
 // ↓ score計算
 // Result
 // ↓ resetボタン

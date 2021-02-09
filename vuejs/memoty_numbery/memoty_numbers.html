@@ -11,80 +11,111 @@
   <script src="https://unpkg.com/vue@next"></script>
 
   <div id="app">
-    <h1>Memory Numbers</h1>
-    <div class="timer" v-if="onMemoryTime"> 記憶終了まで、あと {{ countDown }}
-    </div>
-    <div class="timer" v-if="onRecallTime"> リコール終了まで、あと {{ countDown }}
-    </div>
+    <div style="display: none;" :style="{display: 'block'}">
+      <h1>Memory Numbers</h1>
+      <div v-if="env === 'develop'">
+        <div>gameState: {{ gameState }}</div>
+      </div>
+      <div v-if="gameState=='settingTime'">
+        <h3>設定</h3>
+        <ul>
+          <li>記憶するサイズ: <input v-model="arraySize" type="number"></li>
+          <li>待機時間:
+            <input v-model="preparationMinutes" type="number" min="0" max="60 * 24 * 30">分
+            <input v-model="preparationSecond" type="number" min="0" max="59">秒
+            合計<span>{{ preparationTime() }}</span>秒
+          </li>
+          <li>記憶時間:
+            <input v-model="memoryMinutes" type="number" min="0" max="60 * 24 * 30">分
+            <input v-model="memorySecond" type="number" min="0" max="59">秒
+            合計<span>{{ memoryTime() }}</span>秒
+          </li>
+          <li>想起時間:
+            <input v-model="recallMinutes" type="number" min="0" max="60 * 24 * 30">分
+            <input v-model="recallSecond" type="number" min="0" max="59">秒
+            合計<span>{{ recallTime() }}</span>秒
+          </li>
+        </ul>
+        <button @click="start()">スタート</button>
+        <button @click="start()">スタート</button>
+        <button @click="reload()">リロード</button>
+      </div>
 
-    <button v-if="onMemoryTime" @click="endMemory()">メモリータイムを終了</button>
-    <button v-else-if="onRecallTime" @click="endRecall()">リコールタイムを終了</button>
+      <div class="timer" v-if="gameState === 'memoryTime'">
+        記憶終了まで、あと {{ countDown }}秒
+      </div>
+      <div class="timer" v-else-if="gameState === 'recallTime'">
+        リコール終了まで、あと {{ countDown }}秒
+      </div>
+      <div v-else>
+        記憶終了です。得点は、{{ scoreMatrix() }}です。
+      </div>
+      <div v-if="!onMemoryTime && !onRecallTime && false">
+        記憶終了です。得点は、{{ score() }}点です。
+        一致した個数は、{{ numberOfMatch() }}です。
+      </div>
 
-    <ul v-if="onMemoryTime && false">
-      <li v-for="number of randomNumbers">
-        {{ number }}
-      </li>
-    </ul>
+      <button v-if="gameState === 'memoryTime'" @click="endMemory()">メモリータイムを終了</button>
+      <button v-else-if="gameState === 'recallTime'" @click="endRecall()">リコールタイムを終了</button>
 
-    <ul v-if="onMemoryTime">
-      <li v-for="numbers of randomMatrix">
-        <span v-for="number of numbers">
-          {{ number }},&nbsp;
-        </span>
-      </li>
-    </ul>
+      <ul v-if="onMemoryTime && false">
+        <li v-for="number of randomNumbers">
+          {{ number }}
+        </li>
+      </ul>
 
-    <ol v-if="onRecallTime">
-      <li v-for="(numbers, row) of recallMatrix">
-        <input
-          v-for="(number, col) of numbers"
-          v-model="number"
-          @change="changeMatrixNumber(number, row, col)"
-          @input="changeMatrixNumber(number, row, col)"
-          @click="changeMatrixNumber(number, row, col)"
-          type="number" min="0" max="9">
-      </li>
-    </ol>
+      <ul v-if="onMemoryTime">
+        <li v-for="numbers of randomMatrix">
+          <span v-for="number of numbers">
+            {{ number }},&nbsp;
+          </span>
+        </li>
+      </ul>
 
-    <ol v-if="onRecallTime || onResultTime">
-      <li v-for="(numbers, row) of recallMatrix">
-        <input
-          v-for="(number, col) of numbers"
-          v-model="number"
-          @change="changeMatrixNumber(number, row, col)"
-          @input="changeMatrixNumber(number, row, col)"
-          @click="changeMatrixNumber(number, row, col)"
-          type="number" min="0" max="9">
-      </li>
-    </ol>
+      <ol v-if="gameState === 'recallTime'">
+        <li v-for="(numbers, row) of recallMatrix">
+          <input
+            v-for="(number, col) of numbers"
+            v-model="number"
+            @change="changeMatrixNumber(number, row, col)"
+            @input="changeMatrixNumber(number, row, col)"
+            @click="changeMatrixNumber(number, row, col)"
+            type="number" min="0" max="9">
+        </li>
+      </ol>
 
-    <ul v-if="onRecallTime && false">
-      <li v-for="(number, index) of recallNumbers">
-        <input
-          v-model="number"
-          @change="change(number, index)"
-          @input="change(number, index)"
-          @click="change(number, index)"
-          type="number" min="0" max="9">
-      </li>
-    </ul>
-    <div v-if="!onMemoryTime && !onRecallTime && false">
-      記憶終了です。得点は、{{ score() }}です。
-      一致した個数は、{{ numberOfMatch() }}です。
-    </div>
-    <div v-if="!onMemoryTime && !onRecallTime">
-      記憶終了です。得点は、{{ scoreMatrix() }}です。
-    </div>
+      <ol v-if="gameState === 'resultTime'">
+        <li v-for="(numbers, row) of recallMatrix">
+          <span v-for="(number, col) of numbers">
+            {{ randomMatrix[row][col] }},&nbsp;
+          </span>
+          <span v-for="(number, col) of numbers">
+            <input :value="number" type="number" min="0" max="9">
+          </span>
+        </li>
+      </ol>
 
-    記憶するサイズ: <input v-model="arraySize"><br>
-    <button @click="reset">リセット</button>
+      <ul v-if="gameState === 'recallTime' && false">
+        <li v-for="(number, index) of recallNumbers">
+          <input
+            v-model="number"
+            @change="change(number, index)"
+            @input="change(number, index)"
+            @click="change(number, index)"
+            type="number" min="0" max="9">
+        </li>
+      </ul>
 
-    <div v-if="true">
-      <div>デバッグ用:</div>
-      リコールマトリックス:
-      <div v-if="true">{{ recallMatrix }}</div>
-      <div v-if="false">{{ recallNumbers }}</div>
-      <div v-if="false">{{ score() }}</div>
+      <button @click="restart()" v-if="gameState !== 'await'">リスタート</button>
+      <button @click="reset()">リセット</button>
+
+      <div v-if="env === 'develop'">
+        <div>デバッグ用:</div>
+        リコールマトリックス:
+        <div v-if="true">{{ recallMatrix }}</div>
+        <div v-if="false">{{ recallNumbers }}</div>
+        <div v-if="false">{{ score() }}</div>
+      </div>
     </div>
   </div>
 

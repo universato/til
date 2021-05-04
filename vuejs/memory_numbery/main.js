@@ -1,23 +1,38 @@
-console.log("main.js starts")
+//console.log("main.js starts")
+
+const STORAGE_KEY = 'memory-number-by-universato';
 
 function randomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
 function newMatrix(row, col) {
-  m = new Array(row)
+  let m = new Array(row)
   for(let i = 0; i < row; i++){
-    m[i] = new Array(col)
+    m[i] = new Array(col);
   }
   return m;
 }
+
+const todoStorage = {
+  fetch() {
+    let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    todos.forEach((todo, index) => { todo.id = index; });
+    todoStorage.uid = todos.length;
+    return todos;
+  },
+  save(todos) {
+    //localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }
+};
 
 let app = Vue.createApp({
   data(){
     return {
       env: 'develop',
+      env: 'product',
       gameState: 'awaitTime',
-      arraySize: 99,
+      arraySize: 40,
       colSize: 10,
       randomNumbers: [],
       recallNumbers: [],
@@ -27,7 +42,7 @@ let app = Vue.createApp({
       preparationMinutes: 1,
       preparationSecond: 0,
       memoryMinutes: 1,
-      memorySecond: 0,
+      memorySecond: 3,
       recallMinutes: 1,
       recallSecond: 0,
       memoryTimer: null,
@@ -37,35 +52,7 @@ let app = Vue.createApp({
     }
   },
   created(){
-    this.arraySize = 99
-    this.shuffleNumbers(this.arraySize);
-    this.recallNumbers = new Array(this.arraySize)
-
-    this.shuffleMatrix();
-    row = Math.ceil(this.arraySize / this.colSize);
-
-    this.recallMatrix = newMatrix(row, this.colSize);
-    console.log(this.recallMatrix)
-
-    this.countDown = this.memoryTime();
-    this.gameState = "memoryTime"
-    this.memoryTimer = setInterval(() => {
-      this.countDown--;
-      if(this.countDown === 0){
-        this.onMemoryTime = false;
-        this.onRecallTime = true;
-        this.gameState = "recallTime"
-        clearInterval(this.memoryTimer);
-        this.countDown = 10;
-        this.recallTimer = setInterval(() => {
-          this.countDown--;
-          if(this.countDown === 0){
-            this.gameState = "resultTime"
-            this.onRecallTime = false;
-          }
-        }, 1000)
-      }
-    }, 1000)
+    this.start();
   },
   methods: {
     shuffleMatrix(){
@@ -73,9 +60,9 @@ let app = Vue.createApp({
       col = this.colSize;
       row = Math.ceil(this.arraySize / col)
       cnt = 0
-      for(let i = 0; i < col; i++){
+      for(let i = 0; i < row; i++){
         a = new Array;
-        for(let j = 0; j < row; j++){
+        for(let j = 0; j < col; j++){
           a[j] = randomInt(10);
           cnt += 1;
           if(cnt == this.arraySize){
@@ -97,7 +84,10 @@ let app = Vue.createApp({
       }
     },
     start(){
-      this.arraySize = 99
+      clearInterval(this.timer)
+      clearInterval(this.memoryTimer)
+      clearInterval(this.recallTimer)
+
       this.shuffleNumbers(this.arraySize);
       this.recallNumbers = new Array(this.arraySize)
 
@@ -107,7 +97,7 @@ let app = Vue.createApp({
       this.recallMatrix = newMatrix(row, this.colSize);
       console.log(this.recallMatrix)
 
-      this.countDown = 10;
+      this.countDown = this.memoryTime();
       this.gameState = "memoryTime"
       this.memoryTimer = setInterval(() => {
         this.countDown--;
@@ -140,36 +130,11 @@ let app = Vue.createApp({
       if(this.env === 'develop'){ console.log("restrt()") }
       this.gameState = "memoryTime"
       this.onRecallTime = false
+      clearInterval(this.timer)
       clearInterval(this.recallTimer)
       clearInterval(this.memoryTimer)
-      this.arraySize = 99
-      this.shuffleNumbers(this.arraySize);
-      this.recallNumbers = new Array(this.arraySize)
 
-      this.shuffleMatrix();
-      row = Math.ceil(this.arraySize / this.colSize);
-
-      this.recallMatrix = newMatrix(row, this.colSize);
-      // console.log(this.recallMatrix)
-
-      this.countDown = this.memoryTime();
-      // console.log(this.memoryTime());
-      this.onMemoryTime = 10;
-      this.memoryTimer = setInterval(() => {
-        this.countDown--;
-        if(this.countDown <= 0){
-          this.onMemoryTime = false;
-          this.onRecallTime = true;
-          clearInterval(this.memoryTimer);
-          this.countDown = 10;
-          this.recallTimer = setInterval(() => {
-            this.countDown--;
-            if(this.countDown <= 0){
-              this.onRecallTime = false;
-            }
-          }, 1000)
-        }
-      }, 1000)
+      this.start()
     },
     endMemory(){
       if(this.env === 'develop'){ console.log("end Memory()") }

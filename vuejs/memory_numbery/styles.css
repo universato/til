@@ -1,0 +1,34 @@
+/*
+  <input type="number">のスピンボタンを消す方法 - Qiita
+  https://qiita.com/mrpero/items/c562cf9c2493bbbfe431
+*/
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox、IE */
+input[type="number"] {
+    -moz-appearance:textfield;
+}
+
+.main {
+  margin: 16px 16px 16px 16px;
+  padding: 0px;
+}
+
+.title {
+  font-size: 32px;
+  margin: 16px;
+}
+
+.number {
+  display: inline-block;
+  border: solid 1px #999;
+  margin: 16px 1px 8px 1px;
+  height: 40px;
+  width: 32px;
+  text-align: center;
+}

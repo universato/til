@@ -3,16 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Memry Number</title>
+  <title>Memory Number</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@next"></script>
 
   <div id="app">
-    <div style="display: none;" :style="{display: 'block'}">
-      <h1>Memory Numbers</h1>
+    <div class="main" style="display: none;" :style="{display: 'block'}">
+      <h1 class="title">Memory Numbers</h1>
       <div v-if="env === 'develop'">
         <div>gameState: {{ gameState }}</div>
       </div>
@@ -37,8 +41,17 @@
           </li>
         </ul>
         <button @click="start()">スタート</button>
-        <button @click="start()">スタート</button>
         <button @click="reload()">リロード</button>
+      </div>
+
+      <div>
+        設定:
+        <div>記憶時間
+          <span>{{ memoryMinutes }}</span>分 <span>{{ memorySecond }}</span>秒
+        </div>
+        <div>想起時間
+          <span>{{ recallMinutes }}</span>分 <span>{{ recallSecond }}</span>秒
+        </div>
       </div>
 
       <div class="timer" v-if="gameState === 'memoryTime'">
@@ -47,67 +60,64 @@
       <div class="timer" v-else-if="gameState === 'recallTime'">
         リコール終了まで、あと {{ countDown }}秒
       </div>
-      <div v-else>
+      <div v-if="gameState === 'resultTime'">
         記憶終了です。得点は、{{ scoreMatrix() }}です。
-      </div>
-      <div v-if="!onMemoryTime && !onRecallTime && false">
-        記憶終了です。得点は、{{ score() }}点です。
-        一致した個数は、{{ numberOfMatch() }}です。
       </div>
 
       <button v-if="gameState === 'memoryTime'" @click="endMemory()">メモリータイムを終了</button>
       <button v-else-if="gameState === 'recallTime'" @click="endRecall()">リコールタイムを終了</button>
 
-      <ul v-if="onMemoryTime && false">
-        <li v-for="number of randomNumbers">
-          {{ number }}
-        </li>
-      </ul>
-
-      <ul v-if="onMemoryTime">
+      <ol v-if="gameState === 'memoryTime'">
         <li v-for="numbers of randomMatrix">
-          <span v-for="number of numbers">
-            {{ number }},&nbsp;
-          </span>
+          <div class="number-row">
+            <span v-for="number of numbers"
+                  class="number">
+              {{ number }}
+            </span>
+          </div>
         </li>
-      </ul>
+      </ol>
 
       <ol v-if="gameState === 'recallTime'">
         <li v-for="(numbers, row) of recallMatrix">
-          <input
-            v-for="(number, col) of numbers"
-            v-model="number"
-            @change="changeMatrixNumber(number, row, col)"
-            @input="changeMatrixNumber(number, row, col)"
-            @click="changeMatrixNumber(number, row, col)"
-            type="number" min="0" max="9">
+          <div class="number-row">
+            <input
+              v-for="(number, col) of numbers"
+              v-model="number"
+              @change="changeMatrixNumber(number, row, col)"
+              @input="changeMatrixNumber(number, row, col)"
+              @click="changeMatrixNumber(number, row, col)"
+              type="number" min="0" max="9"
+              class="number">
+          </div>
         </li>
       </ol>
 
       <ol v-if="gameState === 'resultTime'">
         <li v-for="(numbers, row) of recallMatrix">
-          <span v-for="(number, col) of numbers">
-            {{ randomMatrix[row][col] }},&nbsp;
-          </span>
-          <span v-for="(number, col) of numbers">
-            <input :value="number" type="number" min="0" max="9">
-          </span>
+          <div class="number-row">
+            <span v-for="(number, col) of numbers"
+                  class="number">
+              {{ randomMatrix[row][col] }}
+            </span>
+          </div>
+          <div class="number-row">
+            <span v-for="(number, col) of numbers">
+              <input :value="number"
+                     type="number"
+                     min="0"
+                     max="9"
+                     maxlength="1"
+                    class="number">
+            </span>
+          </div>
         </li>
       </ol>
 
-      <ul v-if="gameState === 'recallTime' && false">
-        <li v-for="(number, index) of recallNumbers">
-          <input
-            v-model="number"
-            @change="change(number, index)"
-            @input="change(number, index)"
-            @click="change(number, index)"
-            type="number" min="0" max="9">
-        </li>
-      </ul>
-
-      <button @click="restart()" v-if="gameState !== 'await'">リスタート</button>
-      <button @click="reset()">リセット</button>
+      <div v-if="gameState !== 'settingTime'">
+        <button @click="restart()" >リスタート</button>
+        <button @click="reset()">リセット</button>
+      </div>
 
       <div v-if="env === 'develop'">
         <div>デバッグ用:</div>

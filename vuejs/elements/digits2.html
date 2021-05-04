@@ -1,0 +1,34 @@
+<input type="number" maxlength="1">
+<input type="number" maxlength="1">
+<input type="number" maxlength="1">
+<input type="number" maxlength="1">
+<input type="number" maxlength="1">
+<input type="number" maxlength="1">
+
+<script>
+const
+  filter = e => {
+    if (! e.disabled)
+      if ('number' === e.getAttribute ('type'))
+        if (1 === e.maxLength){
+          console.log(e)
+          return NodeFilter.FILTER_ACCEPT;
+        }
+    return NodeFilter.FILTER_SKIP;
+  },
+
+  walker =
+    document.createTreeWalker (document.body, NodeFilter.SHOW_ELEMENT, filter, true),
+
+  handler =
+    event=> {
+      let e = event.target, f;
+      if (filter (e) == NodeFilter.FILTER_ACCEPT)
+        if (e.value = (f = /^.*(\d)/.exec (e.value)) ? f[1]: '')
+          if (walker.currentNode = e, e = walker.nextNode ())
+            e.focus (), e.select();
+    };
+
+document.addEventListener ('input', handler, true);
+
+</script>

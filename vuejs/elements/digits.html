@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Answer</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <input v-for="(number, index) of numbers"
+            @change="change(number, index)"
+            @input="change(number, index)"
+            @onkeyup="change(number, index)"
+            @onkeypress="change(number, index)"
+            @onkeydown="change(number, index)"
+            type="number"
+            maxlength="1"
+            v-model="number">
+    </input>
+
+    <div>{{ numbers }}</div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          numbers: new Array(3),
+        }
+      },
+      methods: {
+        change(number, index){
+          this.numbers[index] = parseInt(number) % 10
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

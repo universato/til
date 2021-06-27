@@ -1,0 +1,35 @@
+.boxes {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+}
+
+.box1 {
+  height: 200px;
+  width: 200px;
+  background-color: aliceblue;
+}
+
+.box2 {
+  height: 200px;
+  width: 200px;
+  background-color: blanchedalmond;
+}
+
+.box3 {
+  height: 200px;
+  width: 200px;
+  background-color: chocolate;
+}
+
+.box4 {
+  height: 200px;
+  width: 200px;
+  background-color: darkcyan;
+}
+
+.box5 {
+  height: 50px;
+  width: 50px;
+  background-color: gold;
+}

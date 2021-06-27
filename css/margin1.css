@@ -1,0 +1,28 @@
+/* https://bootcamp.fjord.jp/pages/193 */
+
+/* 初期設定 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 100px;
+}
+
+/* ここからデザイン */
+
+/* 親div */
+body > div {
+  background-color: red;
+  display: inline-flex;
+  padding: 16px;
+}
+
+/* 子div */
+div div {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}

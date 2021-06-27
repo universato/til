@@ -1,0 +1,42 @@
+.boxes {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-auto-rows: 100px 100px 100px;
+
+  margin: 4px;
+  padding: 4px;
+  border: solid 1px gray;
+  justify-content: center;
+}
+
+.box1 {
+  background-color: burlywood;
+}
+
+.box2 {
+  background-color: blanchedalmond;
+}
+
+.box3 {
+  background-color: chocolate;
+}
+
+.box4 {
+  background-color: darkcyan;
+}
+
+.box5 {
+  background-color: gold;
+}
+
+.box6 {
+  background-color: forestgreen;
+}
+
+.box7 {
+  background-color: khaki;
+}
+
+.box8 {
+  background-color: salmon;
+}

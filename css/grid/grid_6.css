@@ -1,0 +1,38 @@
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50px);
+  grid-template-rows: 50px;
+  gap: 10px 40px;
+}
+
+.box1 {
+  background-color: blue;
+}
+
+.box2 {
+  background-color: blanchedalmond;
+}
+
+.box3 {
+  background-color: chocolate;
+}
+
+.box4 {
+  background-color: darkcyan;
+}
+
+.box5 {
+  background-color: gold;
+}
+
+.box6 {
+  background-color: forestgreen;
+}
+
+.box7 {
+  background-color: khaki;
+}
+
+.box8 {
+  background-color: salmon;
+}

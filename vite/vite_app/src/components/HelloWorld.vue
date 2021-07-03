@@ -2,6 +2,10 @@
   <section class="alert alert-primary">
     <h1>{{data.title}}</h1>
     <p>{{data.message}}</p>
+    <div class="form-group">
+      <input type="number" class="form-control" v-model="data.id" />
+      <button class="btn btn-primary m-2" @click="doClick">Click</button>
+    </div>
     <table class="table table-light table-striped">
       <tbody class="text-left">
       <tr>
@@ -27,7 +31,7 @@
 
 <script>
 import axios from 'axios'
-import { reactive, onMounted } from 'vue'
+import { reactive } from 'vue'
 
 let url = "https://jsonplaceholder.typicode.com/posts/"
 
@@ -36,19 +40,15 @@ export default {
     const data = reactive({
       title:'Axios',
       message:'This is axios sample.',
+      id:0,
       json_data: null,
     })
-    const getData = ()=> {
-      let id = 2 // ☆id番号
-      axios.get(url + id).then((result)=> {
-        console.log(result.data)
+    const doClick = ()=> {
+      axios.get(url + data.id).then((result)=> {
         data.json_data = result.data
       })
     }
-    onMounted(()=> {
-      getData()
-    })
-    return { data, getData }
+    return { data, doClick }
   },
 }
 </script>

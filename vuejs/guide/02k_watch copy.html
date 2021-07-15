@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    {{ a }}<br>
+    {{ b }}<br>
+    {{ x }}<br>
+    {{ w }}<br>
+    <input v-model="a"><br>
+    <input v-model="b"><br>
+    <input v-model="x"><br>
+    <input v-model="w">
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          a: 'this.a',
+          b: 'this.b',
+          x: 'x',
+          w: 'w'
+        }
+      },
+      watch: {
+        w(w) {
+          this.a = w + this.x
+        },
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

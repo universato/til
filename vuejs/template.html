@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Template</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    options["template"]<br>
+    {{ $options["template"] }}<br>
+    <br><br><br><br>
+    options["render"]<br>{{ $options["render"] }}<br>
+    <br><br><br><br>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          d1: 'this.d1',
+          w: 'this.w'
+        }
+      },
+      methods: {
+        m() {
+          return "method return"
+        },
+        keys(obj) {
+          return Object.keys(obj)
+        }
+      },
+      computed: {
+        c() {
+          return "this.c";
+        },
+      },
+      watch: {
+        w() {
+
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

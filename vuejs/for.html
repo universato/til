@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Answer</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div v-for="(element, index) of array">
+      {{ index }}
+      <input v-model="array[index]">
+      <button @click="delete_at(index)">delete_at</button>
+    </div>
+
+    <div v-for="(element, index) of array">
+      <input v-model="element" v-if="false">
+    </div>
+
+    <input v-model="newMemo">
+    <button @click="push">push</button>
+    <div>fooo</div>
+    <div>{{ array }}</div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          array: ["a", "b", "c"],
+          newMemo: "",
+        }
+      },
+      methods: {
+        push(x) {
+          console.log("push")
+          this.array.push(this.newMemo);
+          this.newMemo = "";
+        },
+        delete_at(index) {
+          this.array.splice(index, 1);
+        },
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

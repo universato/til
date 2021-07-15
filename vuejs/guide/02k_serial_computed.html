@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    computed1: {{ computed1 }}<br>
+    computed2: {{ computed2 }}<br>
+    computed3: {{ computed3 }}<br>
+    <input v-model="a">
+    <input v-model="b">
+  </div>
+
+  <div>computedは、data()で定義されるデータプロパティ以外にも、算出プロパティの影響も受ける。</div>
+
+  <p>
+  </p>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          a: 'this.a',
+          b: 'this.b'
+        }
+      },
+      methods: {
+        methodsNow() {
+          return new Date;
+        },
+      },
+      computed: {
+        computed1() {
+          return this.a;
+        },
+        computed2() {
+          return this.computed1;
+        },
+        computed3() {
+          return this.b;
+        },
+      },
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

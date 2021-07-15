@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>El</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div>
+      <div>{{ $ref }}</div>
+      <div ref="hello">hello</div>
+      <div>{{ foo() }}</div>
+    </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          a: "this.a"
+        }
+      },
+      created(){
+        console.log(this.$el)
+        console.log(this.$refs)
+      },
+      mounted() {
+        console.log(this.$el);
+        console.log(this.$refs)
+        console.log(this.$refs.hello)
+      },
+      methods: {
+        foo(){
+          return _;
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

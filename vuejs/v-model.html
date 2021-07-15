@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>El</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div>
+      <input :value="foo" @input="foo">
+    </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          foo: "foo"
+        }
+      },
+      methods: {
+        foo() {
+          return "foo"
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>v-once</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div>aaa</div>
+    <div v-bind:id="dynamicId">dynamicId</div>
+    <div v-bind:id="null">null</div>
+    <div v-bind:id="undefined">undefined</div>
+    <div v-bind:id="0">0</div>
+    <div v-bind:id="''">''</div>
+    <div v-bind:id="false">false</div>
+    <div>bbb</div>
+  </div>
+
+  <div>属性値がnullやundefinedだと消える。"", false, 0は残る。</div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          dynamicId6: null,
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

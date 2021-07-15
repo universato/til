@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+
+    <template v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </template>
+
+    <div v-if="ok">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </div>
+
+    <input type="checkbox" v-model="ok">
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          ok: true,
+        }
+      },
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

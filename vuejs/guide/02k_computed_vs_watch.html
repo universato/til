@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    d1     : {{ d1 }}<br>
+    d2 <- d1: {{ d2 }}<br>
+    d3 <- c <- d1: {{ c }}<br>
+    <input v-model="d1">
+  </div>
+
+  <div>watchは、データプロパティや算出プロパティ</div>
+
+  <p>
+  </p>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          d1: 'this.d1',
+          d2: 'this.d2',
+          d3: 'this.d3',
+        }
+      },
+      computed: {
+        c() {
+          return this.d1;
+        }
+      },
+      watch: {
+        d1(v) {
+          this.d2 = v;
+        },
+        c(v) {
+          this.d3 = v;
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

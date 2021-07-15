@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div v-for="(value, index) in array"> {{ index }} - {{ value }} </div>
+    <div v-for="(value, key, index) in object"> {{ index }} - {{ key }}: {{ value }} </div>
+    <div v-for="index in 5"> {{ index }} </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          array: ['a', 'b', 'c'],
+          object: { k1: 'x', k2: 'y', k3: 'z'},
+        }
+      },
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <input type="checkbox" v-model="f">
+    <button @click="toggle">toggle</button>
+    <div v-show="f">
+      <div>{{ heavy(10**9) }}</div>
+    </div>
+    <div v-show="!f">
+      <div>{{ heavy(10**8 - 1) }}</div>
+    </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        let n = 10**5;
+        return {
+          f: true,
+          a: new Array(n).fill(0),
+          b: new Array(n).fill(1)
+        }
+      },
+      methods: {
+        toggle() {
+          let s = Date.now();
+          this.f = !this.f;
+          // console.log(Date.now() - s);
+        },
+        heavy (n) {
+          let s = Date.now();
+          // const n = 10**5;
+          let result = 0
+          for (let i = 0; i < n; i++) {
+            result += Math.sqrt(Math.cos(Math.sin(42)))
+          }
+          console.log(Date.now() - s);
+          return result;
+        }
+      },
+      computed: {
+        foo(n) {
+          // let n = 10**5;
+          let cnt = 0
+          for(let i = 0; i < n; i++){
+            cnt += i * 0.5;
+          }
+          return cnt;
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

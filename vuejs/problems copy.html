@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Problems</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div v-for="(problem, index) of problems">
+      <button @click="isEdit[index] = !isEdit[index]">切り替え</button>
+      <br>
+      問題No. {{ index }}<br>
+      <div v-if="isEdit[index]">
+        問題文: <div>{{ problems[index].statement }}</div>
+        <div v-for="(choice, choiceIndex) in problems[index].choices">
+          <div> {{ problems[index].choices[choiceIndex] }} </div>
+        </div>
+      </div>
+      <div v-else>
+        問題文<input v-model="problems[index].statement">
+        <div v-for="(choice, choiceIndex) in problems[index].choices">
+          <input v-model="problems[index].choices[choiceIndex]">
+        </div>
+        <button @click="delete_at(index)">delete_at</button>
+        <button @click="problems[index].choices.push('')">選択肢の追加</button>
+      </div>
+    </div>
+
+    <p>新しい問題文</p>
+
+    <br>
+    問題文<textarea v-model="newProblemStatement"></textarea>
+    <br>
+    選択肢:<br>
+    <div v-for="(newChoice, newChoiceIndex) in newProblemChoices">
+      {{ newChoiceIndex + 1 }}
+      <textarea v-model="newProblemChoices[newChoiceIndex]"></textarea>
+    </div>
+    <input v-model.number="newProblemCorrectOption" type="number"></input><br>
+    <button @click="newChoice">New Choice</button>
+    <button @click="submitNewProblem">Submit New Problem</button>
+
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        let problems = [
+          {
+            id: 100,
+            statement: "abc",
+            choices: ["aaaa", "bbbbbbbb", "ccccccccc", "dddddddddd"],
+            correctOption: 0,
+          },
+          {
+            id: 200,
+            statement: "200200200",
+            choices: ["aaaa", "bbbbbbbb", "ccccccccc", "dddddddddd"],
+            correctOption: 2,
+          }
+        ]
+        let isEdit = Array(problems.lenghth).fill(false);
+        return {
+          problems: problems,
+          isEdit: [false, true],
+          newProblemStatement: "",
+          newProblemChoices: ["", "", "", ""],
+          newProblemCorrectOption: null,
+        }
+      },
+
+      methods: {
+        pushProblem(x) {
+          this.problems.push(this.newMemo);
+          this.newMemo = "";
+        },
+        delete_at(index) {
+          this.problems.splice(index, 1);
+        },
+        newChoice() {
+          this.newProblemChoices.push("")
+        },
+        submitNewProblem() {
+          while(!this.newProblemChoices[this.newProblemChoices.length - 1]){
+            this.newProblemChoices.pop()
+          }
+
+          if(this.newProblemChoices.length === 0 || this.newProblemStatement == "" || this.newProblemCorrectOption == null){
+            console.log([this.newProblemChoices.length, this.newProblemStatement, this.newProblemCorrectOption])
+            console.log("問題はつくられなかった。")
+            return
+          }
+
+          let newProblem = {
+            id: 200,
+            statement: this.newProblemStatement,
+            choices: this.newProblemChoices,
+            correctOption: this.newProblemCorrectOption
+          }
+          this.problems.push(newProblem);
+          this.resetNewProblem();
+        },
+        resetNewProblem() {
+          this.newProblemStatement = "";
+          this.newProblemChoices = ["", "", "", ""];
+          this.newProblemCorrectOption = null;
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

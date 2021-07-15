@@ -1,0 +1,5211 @@
+■■Vue.js 3超入門 ■■サンプルコードリスト■■
+
+--------------------------
+■1章
+--------------------------
+
+■リスト1-1
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <h1>Vue3</h1>
+</body>
+
+</html>
+
+
+
+--------------------------
+
+■リスト1-2
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+  {{ message }}
+  </div>
+
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    }
+  }
+
+  Vue.createApp(appdata).mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト1-3
+<template>
+  <div id="app">
+    <h1>Hello!</h1>
+    <p>This is message...</p>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト2-1
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+  {{ message }}
+  </div>
+
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    }
+  }
+
+  Vue.createApp(appdata).mount('#app')
+  </script>
+</body>
+
+</html>
+
+
+
+--------------------------
+■2章
+--------------------------
+
+■リスト2-2
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+    <p>{{ message }}</p>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message: 'Hello Vue!',
+        count: 0
+      }
+    },
+    mounted() {
+      setInterval(() => {
+        this.count++
+        this.message = 'Count: ' + this.count
+      }, 1000)
+    }
+  }
+
+  Vue.createApp(appdata).mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-3
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+    <p>{{ message }}</p>
+    <hr>
+    <button onclick="doAction()">Stop</button>
+  </div>
+  
+  <script>
+  let timer = null
+
+  function doAction() {
+    clearInterval(timer)
+  }
+
+  const appdata = {
+    data() {
+      return {
+        message: 'ok'
+      }
+    },
+    created() {
+      this.message = 'Hello Vue!'
+      this.count = 0
+    },
+    mounted() {
+      timer = setInterval(() => {
+        this.count++
+        this.message = 'Count: ' + this.count
+      }, 1000)
+    }
+  }
+
+  Vue.createApp(appdata).mount('#app')
+  </script>
+</body>
+
+--------------------------
+
+■リスト2-4
+{{ message.toUpperCase() }}
+
+
+
+--------------------------
+
+■リスト2-5
+{{ message + " [" + new Date().toLocaleString() + "]" }}
+
+
+
+--------------------------
+
+■リスト2-6
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+    <div v-html="message"></div>
+  </div>
+  
+  <script>
+  const list = ['One', 'Two', 'Three']
+  const appdata = {
+    data() {
+      return {
+        message: `<ul>
+          <li>${list[0]}</li>
+          <li>${list[1]}</li>
+          <li>${list[2]}</li>
+        </ul>`
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-7
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+    <div>{{ num + 'は、' + (num % 2 == 0 ? '偶数' : '奇数') + 'です。'}}</div>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        num: Math.floor(Math.random() * 100)
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-8
+<body>
+  <h1>Vue3</h1>
+  <div id="app">
+    <pre>{{data.map((value,key)=>key + ' :「' + value + '」').join('\n')}}</pre>
+  </div>
+  
+  <script>
+  const data = ['Windows','macOS','Linux','iOS','Android']
+  const appdata = {
+    data() {
+      return {
+        data: data
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-9
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+--------------------------
+
+■リスト2-10
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My first Vue app</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+
+  <body>
+    <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+    <div id="app" class="container">
+      <p>{{ message }}</p>
+    </div>
+    
+    <script>
+    const appdata = {
+      data() {
+        return {
+          message : null
+        }
+      },
+      mounted() {
+        this.message = 'This is sample page.'
+      }
+    }
+
+    let app = Vue.createApp(appdata)
+    app.mount('#app')
+    </script>
+  </body>
+</html>
+
+
+
+--------------------------
+
+■リスト2-11
+<div id="app" class="container">
+  <p class="text-primary">{{ message }}</p>
+  <p class="text-secondary">{{ message }}</p>
+  <p class="text-success">{{ message }}</p>
+  <p class="text-danger">{{ message }}</p>
+  <p class="text-warning">{{ message }}</p>
+  <p class="text-dark">{{ message }}</p>
+  <p class="text-light">{{ message }}</p>
+  <p class="text-info">{{ message }}</p>
+  <p class="bg-primary">{{ message }}</p>
+  <p class="bg-secondary">{{ message }}</p>
+  <p class="bg-success">{{ message }}</p>
+  <p class="bg-danger">{{ message }}</p>
+  <p class="bg-warning">{{ message }}</p>
+  <p class="bg-info">{{ message }}</p>
+  <p class="bg-dark">{{ message }}</p>
+  <p class="bg-light">{{ message }}</p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-12
+<div id="app" class="container">
+  <p class="h1">{{ message }}</p>
+  <p class="h2">{{ message }}</p>
+  <p class="h3">{{ message }}</p>
+  <p class="h4">{{ message }}</p>
+  <p class="h5">{{ message }}</p>
+  <p class="h6">{{ message }}</p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-13
+<div id="app" class="container">
+  <p class="display-1">{{ message }}</p>
+  <p class="display-2">{{ message }}</p>
+  <p class="display-3">{{ message }}</p>
+  <p class="display-4">{{ message }}</p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-14
+<div id="app" class="container h5">
+  <p class="m-1 bg-primary">{{ message }}</p>
+  <p class="m-2 bg-primary">{{ message }}</p>
+  <p class="m-3 bg-primary">{{ message }}</p>
+  <p class="m-4 bg-primary">{{ message }}</p>
+  <p class="m-5 bg-primary">{{ message }}</p>
+  <p class="p-1 bg-primary">{{ message }}</p>
+  <p class="p-2 bg-primary">{{ message }}</p>
+  <p class="p-3 bg-primary">{{ message }}</p>
+  <p class="p-4 bg-primary">{{ message }}</p>
+  <p class="p-5 bg-primary">{{ message }}</p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-15
+<div id="app" class="container h5">
+  <p class="alert alert-primary">{{ message }}</p>
+  <p class="alert alert-secondary">{{ message }}</p>
+  <p class="alert alert-success">{{ message }}</p>
+  <p class="alert alert-danger">{{ message }}</p>
+  <p class="alert alert-warning">{{ message }}</p>
+  <p class="alert alert-info">{{ message }}</p>
+  <p class="alert alert-light">{{ message }}</p>
+  <p class="alert alert-dark">{{ message }}</p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-16
+<div id="app" class="container">
+  <p>※Cardを利用したカード型コンテンツの表示例。</p>
+  <div class="card m-4 p-4" style="width:18rem;">
+    <h5 class="card-title">Contents</h5>
+    <p class="card-text">{{ message }}</p>
+  </div>
+</div>
+
+
+
+--------------------------
+
+■リスト2-17
+<div id="app" class="container">
+  <p>※フォームの表示例。</p>
+  <form>
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input type="text" class="form-control" id="id" placeholder="IDを入力">
+      <small class="form-text">あなたのIDを入力してください。</small>
+    </div>
+    <div class="form-group">
+      <label for="pass">Password</label>
+      <input type="password" class="form-control" id="pass" placeholder="パスワード">
+      <small class="form-text">パスワードを入力してください。</small>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="check">
+      <label class="form-check-label" for="check">Check box</label>
+    </div>
+    <button type="submit" class="btn btn-primary">送信</button>
+  </form>
+</div>
+
+
+
+--------------------------
+
+■リスト2-18
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-bind:style="style">{{ message }}</p>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : null,
+        style:'font-size:32pt; color:red;'
+      }
+    },
+    mounted() {
+      this.message = 'This is sample page.'
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-19
+<body>
+  <style>
+  .red {
+      font-size:32pt;
+      font-weight:plain;
+      font-style:normal;
+      color:red;
+  }
+  .blue {
+      font-size:24pt;
+      font-weight:bold;
+      font-style: italic;
+      color:blue;
+  }
+  </style>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-bind:class="{red:isRed, blue:isBlue}">
+      {{ message }}
+    </p>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : null,
+        isRed: true,
+        isBlue: false
+      }
+    },
+    mounted() {
+      this.message = 'This is sample page.'
+      setInterval(()=>{
+        this.isBlue = !this.isBlue
+        this.isRed = !this.isRed
+      },1000)
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-20
+<body>
+  <style>
+  .red {……略……}
+  .blue {……略……}
+  </style>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-bind:class="classObj">
+      {{ message }}
+    </p>
+  </div>
+  
+  <script>
+  var classObj = {
+      red: true,
+      blue: false
+  }
+
+  const appdata = {
+    data() {
+      return {
+        message : 'This is sample page.',
+        classes : classObj
+      }
+    },
+    mounted() {
+      setInterval(()=>{
+        this.classes.red = !classObj.red
+        this.classes.blue = !classObj.blue
+      }, 1000)
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-21
+<div id="app" class="container">
+  <p v-bind:style="{fontSize:'20pt', color:'red',border:'2px solid cyan'}">
+    {{ message }}
+  </p>
+</div>
+
+
+
+--------------------------
+
+■リスト2-22
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-bind:style="styles">
+      {{ message }}
+    </p>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : 'This is sample page.',
+        styles: {
+          margin:'10px',
+          padding:'5px 20px',
+          fontSize:'20pt', 
+          color:'red',
+          backgroundColor:'#fee',
+          border:'3px solid blue'
+        }
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-23
+<body>
+  <style>
+  .ok {
+      font-size:24pt;
+      color:blue;
+      padding: 5px 10px;
+      border: 2px solid red;
+  }
+  .ng {
+      font-size:20pt;
+      color:gray;
+  }
+  </style>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p v-if="flag" class="ok">
+      {{ message }}
+    </p>
+    <p v-else class="ng">
+      ※現在、問題が発生中です……
+    </p>
+</div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : 'This is sample page.',
+        flag : true
+      }
+    },
+    mounted() {
+      setInterval(()=>{
+        this.flag = !this.flag
+      }, 10000)
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-24
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <template v-if="flag">
+      <p>※データをテーブル表示する</p>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr><th>Name</th><th>mail</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Taro</td><td>taro@yamada</td></tr>
+          <tr><td>Hanako</td><td>hanako@flower</td></tr>
+          <tr><td>Sachiko</td><td>sachiko@happy</td></tr>
+      </tbody>
+      </table>
+    </template>
+    <template v-else>
+      <p>※データをリスト表示する</p>
+      <ul class="list-group">
+        <li class="list-group-item">Taroのアドレスは、taro@yamadaです。</li>
+        <li class="list-group-item">hanakoのアドレスは、hanako@flowerです。</li>
+        <li class="list-group-item">Sachikoのアドレスは、sachiko@happyです。</li>
+      </ul>
+    </template>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        flag : true
+      }
+    },
+    mounted() {
+      setInterval(()=>{
+        this.flag = !this.flag
+      }, 10000)
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-25
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>mail</th>
+          <th>tel</th>
+        </tr>
+      </thead>
+      <tr v-for="item in items">
+        <td>{{item.name}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.tel}}</td>
+      </tr>
+    </table>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※データをテーブル表示する',
+        items:[
+          {name:'Taro', mail:'taro@yamada', tel:'999-999'},
+          {name:'Hanako', mail:'hanako@flower', tel:'888-888'},
+          {name:'Sachiko', mail:'sachiko@happy', tel:'777-777'},
+          {name:'Jiro', mail:'jiro@change', tel:'666-666'},
+        ]
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-26
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>mail</th>
+      <th>tel</th>
+    </tr>
+  </thead>
+  <tr v-for="(item, id) in items">
+    <td>{{id}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.mail}}</td>
+    <td>{{item.tel}}</td>
+  </tr>
+</table>
+
+
+
+--------------------------
+
+■リスト2-27
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>mail</th>
+          <th>tel</th>
+        </tr>
+      </thead>
+      <tr v-for="(item, key) in items">
+        <td>{{key}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.tel}}</td>
+      </tr>
+    </table>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※データをテーブル表示する',
+        items:{
+            Taro:{mail:'taro@yamada', tel:'999-999'},
+            Hanako: {mail:'hanako@flower', tel:'888-888'},
+            Sachiko: {mail:'hanako@flower', tel:'888-888'},
+            Jiro: {mail:'jiro@change', tel:'666-666'}
+        }
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-28
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>mail</th>
+          <th>tel</th>
+        </tr>
+      </thead>
+      <template v-for="(item, index) in items">
+      <tr v-if="index % 2 == 0">
+        <td>{{index}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.tel}}</td>
+      </tr>
+      <tr v-else>
+        <td>***</td>
+        <td>***非公開***</td>
+        <td>***非公開***</td>
+        <td>***非公開***</td>
+      </tr>
+    </template>
+    </table>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※データをテーブル表示する',
+        items:[
+          {name:'Taro', mail:'taro@yamada', tel:'999-999'},
+          {name:'Hanako', mail:'hanako@flower', tel:'888-888'},
+          {name:'Sachiko', mail:'sachiko@happy', tel:'777-777'},
+          {name:'Jiro', mail:'jiro@change', tel:'666-666'},
+          {name:'mami', mail:'mami@mumemo', tel:'555-555'},
+        ]
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト2-29
+<template v-for="(item, index) in items">
+  <template v-if="index % 2 == 0">
+    <tr>
+      <td>{{index}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.mail}}</td>
+      <td>{{item.tel}}</td>
+    </tr>
+  </template>
+  <template v-else>
+    <tr>
+      <td>***</td>
+      <td>***非公開***</td>
+      <td>***非公開***</td>
+      <td>***非公開***</td>
+    </tr>
+  </template>
+</template>
+
+
+
+--------------------------
+■3章
+--------------------------
+
+■リスト3-1
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    template: '<p class="alert alert-primary">Hello!</p>'
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-2
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    data() {
+      return { 
+        message: 'これは新しいメッセージです。'
+      }
+    },
+    template: '<p class="alert alert-primary">{{message}}</p>'
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+</body>
+
+
+
+--------------------------
+
+■リスト3-3
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <div><hello name="Taro" /></div>
+    <div><hello name="Hanako" /></div>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    props:['name'],
+    data() {
+      return { 
+        message: 'これは新しいメッセージです。'
+      }
+    },
+    template: '<p class="alert alert-primary">Hello, {{name}}!</p>',
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-4
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello v-for="item in data" v-bind:name="item" />
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+        data:['Taro', 'Hanako', 'Sachiko', 'Jiro']
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    props:{ name:String },
+    data() {
+      return { 
+        message: 'これは新しいメッセージです。'
+      }
+    },
+    template: '<p class="alert alert-primary">Hello, {{name}}!</p>',
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-5
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <div><hello v-bind:name="name" /></div>
+    <div class="form-group">
+      <input type="text" v-model="name" class="form-control">
+    </div>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+        name:'no-name'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    props:['name'],
+    template: '<p class="alert alert-info">Hello, {{name}}!</p>',
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-6
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+        name:'no-name'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    data() {
+      return {
+        counter : 0
+      }
+    },
+    template: '<p onclick="counter++"class="alert alert-info">clicked: {{counter}}.</p>',
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-7
+template: '<p v-on:click="counter++" class="alert alert-info">clicked: {{counter}}.</p>',
+
+
+
+--------------------------
+
+■リスト3-8
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+        name:'no-name'
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    data() {
+      return {
+        counter : 0,
+        isInfo : true,
+        isDark : false
+      }
+    },
+    methods:{
+      doAction() {
+        this.counter++
+        console.log("counter")
+        if (this.counter % 2 == 0) {
+          this.isInfo = true
+          this.isDark = false
+          console.log("true")
+        } else {
+          this.isInfo = false
+          this.isDark = true
+          console.log("false")
+        }
+      },
+    },
+    template: '<p v-on:click="doAction" v-bind:class="{\'alert-warning\':isInfo, \'alert-dark\':isDark}" class="alert">clicked: {{counter}}.</p>',
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-9
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    data() {
+      return {
+        num:0,
+        message:'type a number.',
+      }
+    },
+    methods:{
+      calc() {
+        var total = 0
+        for (var i = 1; i <=this.num;i++){
+          total += i
+        }
+        this.message = "total: " + total
+      }
+    },
+    template: `<div>
+      <p class="alert alert-info h4">{{message}}</p>
+      <div>
+        <input class="form-control" type="number" 
+          v-on:input="calc" v-model="num">
+        </div>
+      </div>`
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-10
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <hello/>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.component('hello', {
+    data() {
+      return {
+        num:0,
+      }
+    },
+    computed:{  // 算術プロパティ
+      calc:function(event) {
+        var total = 0
+        for (var i = 1; i <=this.num;i++){
+          total += i
+        }
+        return "total: " + total
+      }
+    },
+    template: `<div>
+      <p class="alert alert-info h4">{{calc}}</p>
+      <div>
+        <input class="form-control" type="number" 
+          v-model="num">
+      </div>
+    </div>`
+  })
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-11
+<body>
+  <h1 class="bg-secondary text-white display-4 px-3">Vue3</h1>
+  <div id="app" class="container">
+    <p>{{ message }}</p>
+    <div><hello /></div>
+    <div><hello /></div>
+    <div><hello /></div>
+  </div>
+  
+  <script>
+  const appdata = {
+    data() {
+      return {
+        message : '※コンポーネントを表示する',
+      }
+    },
+    components:{
+      hello:{
+        data() {
+          return { 
+            counter:0,
+          }
+        },
+        template: `<p v-on:click="counter++" 
+          class="alert alert-info h5">
+            clicked: {{counter}}.</p>`
+      }
+    }
+  }
+
+  let app = Vue.createApp(appdata)
+
+  app.mount('#app')
+  </script>
+</body>
+
+
+
+--------------------------
+
+■リスト3-12
+import { createApp } from 'vue'
+import App from './App.vue'
+import './index.css'
+
+createApp(App).mount('#app')
+
+
+
+--------------------------
+
+■リスト3-13
+<template>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-14
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
+
+
+
+--------------------------
+
+■リスト3-15
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 class="bg-secondary text-white h4 p-3">Vue3 Vite</h1>
+  <div class="container">
+    <div id="app"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
+
+
+
+--------------------------
+
+■リスト3-16
+<template>
+  <div class="alert alert-info">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String,
+    message: String,
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-17
+<template>
+  <div id="app">
+    <HelloWorld title="Hello"
+      message="※これは、Vue3のサンプルプロジェクトです。"/>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-18
+<template>
+  <div class="alert alert-info">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <hr>
+    <div>
+      <input class="form-control" type="text" v-model="input">
+      <button class="btn btn-info mt-2" v-on:click="doAction">
+        Click</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String,
+    message: String,
+  },
+  data() {
+    return {
+      message: 'お名前は？',
+      input:'no name',
+    }
+  },
+  methods: {
+    doAction() {
+      this.message = 'こんにちは、' + this.input + 'さん！'
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-19
+<template>
+  <div id="app">
+    <HelloWorld title="Hello" />
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト3-20
+<template>
+  <div id="app">
+    <HelloWorld v-bind:title="message" />
+    <hr>
+    <button class="btn btn-primary" v-on:click="doAction">
+      change title</button>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data() {
+    return {
+      message:'HELLO',
+    }
+  },
+  methods:{
+    doAction() {
+      var input = prompt("new title:")
+      this.message = input
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-21
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String,
+  },
+  data() {
+    return {
+      message: 'お名前は？',
+      input:'no name',
+    }
+  },
+  methods: {
+    doAction() {
+      this.message = 'こんにちは、' + this.input + 'さん！'
+      this.$emit('result-event', this.input)
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-22
+<template>
+  <div id="app">
+    <HelloWorld v-bind:title="message" 
+      v-on:result-event="appAction" />
+    <hr>
+    <p>{{result}}</p>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+  data() {
+    return {
+      message:'HELLO',
+      result:'no event.',
+    }
+  },
+  methods: {
+    appAction(message) {
+      this.result = '(*** you send:"' + message + '". ***)'
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-23
+<template>
+  <div className="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p ref="msg">{{message}}</p>
+    <button class="btn btn-primary" 
+      v-on:click="DoAction">Click</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'HelloWorld',
+      message:'This is sample message.',
+    }
+  },
+  mounted() {
+    this.counter = 0
+  },
+  methods: {
+    DoAction() {
+      this.counter++
+      this.$refs.msg.innerHTML += '<h6>counted: ' 
+        + this.counter + '</h6>'
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-24
+<template>
+  <div class="card alert-primary">
+    <div class="card-body text-left">
+      <h2 class="card-title text-center">{{ title }}</h2>
+      <p class="card-text h5">{{ message }}</p>
+      <hr>
+      <div>
+        <div class="form-group">
+          <label>Formula:</label>
+          <textarea class="form-control mb-2" 
+            v-model="fomula"></textarea>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-primary" 
+            v-on:click="doAction">CALC</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Calc',
+  props: {
+    title: String,
+  },
+  data() {
+    return {
+      message: 'Enter expression:',
+      fomula:'0',
+    }
+  },
+  methods:{
+    doAction() {
+      let arr = this.fomula.trim().split('\n')
+      let last = arr.pop()
+      let fn = ''
+      for(let  n in arr) {
+        if (arr[n].trim() != '') {
+          fn += 'let ' + arr[n] + ';'
+        }
+      }
+      fn += 'return ' + last + ';'
+      let exp = 'function f(){' + fn + '} f();'
+      let ans = eval(exp);
+      this.message = 'answer: ' + ans
+      let re = arr.join(';').trim()
+      if (re != '') { re += ';' }
+      re += last
+      this.$emit('result-event', re, ans)
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト3-25
+<template>
+  <div id="app">
+    <Calc v-bind:title="message" 
+      v-on:result-event="appAction"/>
+    <div class="mt-3 text-left">
+      <table class="table" v-html="log"></table>
+    </div>
+    <div>
+      <button class="btn btn-danger" 
+        v-on:click="doClear">Clear Log</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import Calc from './components/Calc.vue'
+
+export default {
+  name: 'app',
+  components: {
+    Calc
+  },
+  data() {
+    return {
+      message:'CALC',
+      result:[],
+    }
+  },
+  computed: {
+    log() {
+      let table = '<tr><th>Expression</th><th>Value</th></tr>'
+      if (this.result.length > 0) {
+        for(var i in this.result) {
+          table += '<tr><td>' + this.result[i][0] + '</td><th>' 
+            + this.result[i][1] + '</th></tr>'
+        }
+      }
+      return table
+    }
+  },
+  created() {
+    let items = localStorage.getItem('log')
+    let logs = JSON.parse(items)
+    if (logs != null){ this.result = logs }
+  },
+  methods: {
+    appAction(exp, res) {
+      this.result.unshift([exp, res])
+      var log = JSON.stringify(this.result)
+      localStorage.setItem('log', log)
+    },
+    doClear() {
+      if (confirm('ログをすべて消去します。')) {
+        localStorage.removeItem('log')
+        this.result = []
+      }
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+■4章
+--------------------------
+
+■リスト4-1
+<template>
+  <div id="app">
+    <HelloWorld />
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-2
+<template>
+  <div class="alert alert-info">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'HelloWorld',
+      message:'This is sample message.',
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-3
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'HelloWorld',
+      message:'This is sample message.',
+    }
+  },
+  render() {
+    return  `<h1>{{title}}</h1>
+      <p>{{message}}</p>`
+    }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-4
+<script>
+import { h } from 'vue'
+
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'HelloWorld',
+      message:'This is sample message.',
+    }
+  },
+  render() {
+    return  h('div',{
+        class:'alert alert-warning'
+      },
+      [
+        h('h2', this.title),
+        h('p', this.message)
+      ])
+    }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-5
+export default {
+  name :'HelloJSX',
+  data() {
+    return {
+      title: 'HelloJSX',
+      message:'This is sample message.',
+    }
+  },
+  render(h) {
+    return (
+      <div class="alert alert-primary">
+        <h2>{ this.title }</h2>
+        <p>{ this.message }</p>
+      </div>
+    )
+  }
+}
+
+
+
+--------------------------
+
+■リスト4-6
+<template>
+  <div id="app">
+    <HelloJSX />
+  </div>
+</template>
+
+<script>
+import HelloJSX from './components/HelloJSX.jsx'
+
+export default {
+  name: 'app',
+  components: {
+    HelloJSX
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-7
+export default {
+  name :'HelloJSX',
+  props: {
+    title: String,
+    msg: String
+  },
+  render(h) {
+    return (
+      <div class="alert alert-primary">
+        <h2>{ this.title }</h2>
+        <p>{ this.msg }</p>
+      </div>
+    )
+  }
+}
+
+
+
+--------------------------
+
+■リスト4-8
+<HelloJSX title="OK, Vue3" 
+  msg="※属性で設定したメッセージ。" />
+
+
+
+--------------------------
+
+■リスト4-9
+export default {
+  name :'HelloJSX',
+  props: {
+    title: String,
+    msg: String
+  },
+  data() {
+    return {
+      cls_title: 'text-danger h1',
+      cls_msg: 'text-primary h5'
+    }
+  },
+  render(h) {
+    return (
+      <div class="alert alert-primary">
+        <h2 class={this.cls_title}>{ this.title }</h2>
+        <p class={this.cls_msg}>{ this.msg }</p>
+      </div>
+    )
+  }
+}
+
+
+
+--------------------------
+
+■リスト4-10
+<template>
+  <div class="alert alert-primary">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <hr>
+    <p>Number: {{ num }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String,
+    num: Number,
+    },
+
+  data() {
+    return {
+      message: 'バリデーション・チェック',
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-11
+<template>
+  <div id="app">
+    <HelloWorld v-bind:title="message" 
+      v-bind:num="num" />
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+  data() {
+    return {
+      message:'validate',
+      num: 'abc',
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-12
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String,
+    num: {
+      type:Number,
+      default: 100,
+      validator: (value)=> {
+        return value == parseInt(value)
+          && value >= 0 && value <= 100
+      },
+    },
+  },
+  data() {
+    return {
+      message: 'バリデーション・チェック',
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-13
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <hr>
+    <p class="h5">val: {{val}}</p>
+    <div class="form-group text-left">
+      <label>* 2:</label>
+      <input type="number" 
+        v-model="a" class="form-control">
+    </div>
+    <div class="form-group text-left">
+      <label>^ 2:</label>
+      <input type="number" 
+        v-model="b" class="form-control">
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title: String, 
+  },
+  data() {
+    return {
+      message: '算術プロパティの利用。',
+      val: 0,
+    }
+  },
+  computed: {
+    a: {
+      get() {
+        return this.val * 2
+      },
+      set(value) {
+        this.val = Math.floor(value / 2)
+      },
+    },
+    b: {
+      get() {
+        return this.val * this.val
+      },
+      set(value) {
+        this.val = Math.floor(Math.sqrt(value))
+      },
+    },
+  },
+  created() {
+    this.val = 10
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-14
+<HelloWorld title="computed" />
+
+
+
+--------------------------
+
+■リスト4-15
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    <hr>
+    <div class="form-group text-left">
+      <label>Value:</label>
+      <input type="number" v-model="val"
+        class="form-control">
+    </div>
+    <table class="bg-white table mt-4">
+      <tr><th>add:</th><td>{{add}}</td></tr>
+      <tr><th>sub:</th><td>{{sub}}</td></tr>
+      <tr><th>multiple:</th><td>{{mult}}</td></tr>
+      <tr><th>divide:</th><td>{{div}}</td></tr>
+    </table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'Watchers',
+      message: '値の監視',
+      val: 0,
+      add: 0,
+      sub: 0,
+      mult:0,
+      div: 0,
+    }
+  },
+  watch:{
+    val(newValue, oldValue) {
+      console.log(oldValue + ' -> ' + newValue)
+      this.val = newValue
+      var val = parseInt(this.val)
+      this.add = Math.floor(val + 2)
+      this.sub = Math.floor(val - 2)
+      this.mult = Math.floor(val * 2)
+      this.div = Math.floor(val / 2)
+   }
+  },
+  created(){
+    this.val = 6
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-16
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre v-on:click="clear">{{ message }}</pre>
+    <hr>
+    <div id="out" class="out" v-on:click="a_event">A
+      <div id="mid" class="mid" v-on:click="b_event">B
+        <div id="in" class="in" v-on:click="c_event">C
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function(){
+    return {
+      title: 'Event',
+      message: 'イベントの伝播について。\n',
+    }
+  },
+  methods: {
+    a_event(event) {
+      this.message += "A-Event [" + event.target.id 
+        + ' → ' + event.currentTarget .id + "]\n"
+    },
+    b_event(event) {
+      this.message += "B-Event [" + event.target.id 
+        + ' → ' + event.currentTarget .id + "]\n"
+    },
+    c_event(event) {
+      this.message += "C-Event [" + event.target.id 
+        + ' → ' + event.currentTarget .id + "]\n"
+    },
+    clear() {
+      this.message = 'イベントの伝播について。\n'
+    }
+  },
+}
+</script>
+
+<style>
+pre {
+  font-size:16pt;
+  line-height: 1.25;
+}
+div.out {
+  padding: 0px;
+  background-color: #eee;
+  width:300px;
+  height:200px;
+}
+div.mid {
+  padding: 0px;
+  background-color: #ddd;
+  width:200px;
+  height:170px;
+}
+div.in {
+  padding: 0px;
+  background-color: #ccc;
+  width:100px;
+  height:140px;
+}
+</style>
+
+
+
+--------------------------
+
+■リスト4-17
+<div id="mid" class="mid" v-on:click.stop="b_event">B
+
+
+
+--------------------------
+
+■リスト4-18
+<div id="mid" class="mid" v-on:click.self="b_event">B
+
+
+
+--------------------------
+
+■リスト4-19
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre v-on:click="clear">{{ message }}</pre>
+    <hr>
+    <div><input type="text" v-on:keydown="type"
+      class="form-control"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function(){
+    return {
+      title: 'Event',
+      message: '',
+    }
+  },
+  methods: {
+    type(event) {
+      this.message += event.key + ' '
+      if (event.key == "Escape") {
+        this.message = ''
+      }
+      event.target.value = ''
+    },
+    clear() {
+      this.message = ''
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-20
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre>{{ message }}</pre>
+    <hr>
+    <div>
+      <input type="text" class="form-control"
+        v-on:keypress="type"
+        v-on:keydown.delete="clear"
+        v-on:keydown.space="space" 
+        v-on:keydown.enter="enter"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'Event',
+      message: '',
+    }
+  },
+  methods: {
+    type(event) {
+      if (event.key == 'Enter'){ return }
+      this.message += event.key + ' '
+      event.target.value = ''
+    },
+    clear() {
+      this.message = ''
+    },
+    space() {
+      this.message += '_ '
+    },
+    enter(event) {
+      var res = this.message.split(' ').join('')
+       this.message = res.split('_').join(' ')
+       event.target.value = ''
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-21
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre>{{ message }}</pre>
+    <hr>
+    <div class="area"
+      v-on:click="click"
+      v-on:click.exact="exact"
+      v-on:click.shift="shift"
+      v-on:click.ctrl="ctrl"
+      v-on:click.alt="alt">
+        click here!
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function(){
+    return {
+      title: 'Event',
+      message: '',
+    }
+  },
+  methods: {
+    click() {
+      this.message = 'click '
+    },
+    exact() {
+      this.message += '**no any key**'
+    },
+    shift() {
+      this.message += '[shift]'
+    },
+    ctrl() {
+      this.message += '[ctrl]'
+    },
+    alt() {
+      this.message += '[alt]'
+    },
+  },
+}
+</script>
+
+<style>
+……略……
+
+.area {
+  width:300px;
+  height:100px;
+  background-color: #fff;
+  padding:10px;
+  font-size:20pt;
+}
+</style>
+
+
+
+--------------------------
+
+■リスト4-22
+<template>
+  <div class="alert alert-primary">
+    <h1>{{ title }}</h1>
+    <pre>{{ message }}</pre>
+    <hr>
+    <div class="area"
+      v-on:click.left.prevent="left"
+      v-on:click.middle.prevent="middle"
+      v-on:click.right.prevent="right">
+        click here!
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function(){
+    return {
+      title: 'Event',
+      message: '',
+    }
+  },
+  methods: {
+    left() {
+      this.message = '[left button]'
+    },
+    right() {
+      this.message = '[right button]'
+    },
+    middle() {
+      this.message = '[middle button]'
+    },
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-23――App.vue
+<template>
+  <div id="app">
+    <HelloWorld title="slot">
+      <p>***this is defalut text***</p>
+    </HelloWorld>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト4-24――HelloWorld.vue
+<template>
+  <div class="alert alert-primary">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <hr>
+    <div class="alert alert-light">
+      <h3>Inner Slot</h3>
+      <slot />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function(){
+    return {
+      title:'Slot',
+      message: 'This is message.',
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-25――App.vue
+<template>
+  <div id="app">
+    <HelloWorld>
+      <p>Begin!..</p>
+      <template v-slot:first>
+      ***First message***
+      </template>
+      <p>..Middle..</p>
+      <template v-slot:second>
+        ***Second message***
+      </template>
+      <p>..End</p>
+      <template v-slot:third>
+        ***Third message***
+      </template>
+    </HelloWorld>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト4-26――HelloWorld.vue
+<template>
+  <div class="alert alert-primary">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <hr>
+    <div class="alert alert-light">
+      <h3>Inner Slot</h3>
+      <div class="alert alert-warning h5">
+        <slot/>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <slot name="first"/>
+        </li>
+        <li class="list-group-item">
+          <slot name="second"/>
+        </li>
+        <li class="list-group-item">
+          <slot name="third"/>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト4-27――App.vue
+<template>
+  <div id="app">
+    <HelloWorld title="slot">
+      <li class="list-group-item"
+        v-for="obj in slotobjs"
+        v-bind:key="obj.name">
+        {{obj.name}} ({{obj.mail}})
+      </li>
+    </HelloWorld>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+  data() {
+    return {
+      slotobjs: [
+        {name:'Taro', mail:'taro@yamada'},
+        {name:'Hanako', mail:'hanako@flower'},
+        {name:'Sachiko', mail:'sachiko@happy'},
+      ],
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-28――HelloWorld.vue
+<template>
+  <div class="alert alert-primary">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <hr>
+    <div class="alert alert-light">
+      <h3>Inner Slot</h3>
+      <ol class="list-group text-left">
+        <slot/>
+      </ol>
+    </div>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト4-29
+<template>
+  <div class="alert alert-primary">
+    <h2>{{title}}</h2>
+    <p>{{message}}</p>
+    <button class="btn btn-primary m-3"
+      v-on:click="doAction">
+    {{btn}}
+    </button>
+    <transition name="transit">
+      <p v-if="flg" class="alert alert-light h5">
+        Transition context!
+      </p>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'Trans&Anim',
+      message:'This is Transition sample!',
+      flg:true,
+      btn:'Show/Hide',
+    }
+  },
+  methods:{
+    doAction(){
+      this.flg = !this.flg
+    },
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-30
+<template>
+  <div class="alert alert-primary">
+    <h2>{{title}}</h2>
+    <p>{{message}}</p>
+    <button class="btn btn-primary mb-3"
+      v-on:click="doAction">
+    {{btn}}
+    </button>
+    <transition name="transit">
+      <p v-if="flg" class="alert p-3 h5 trans">
+        Transition context!
+      </p>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      title: 'Trans&Anim',
+      message:'This is Transition sample!',
+      flg:true,
+      btn:'Show/Hide',
+    }
+  },
+  methods:{
+    doAction(){
+      this.flg = !this.flg
+    },
+  },
+}
+</script>
+
+<style>
+.trans {
+  background-color:black;
+  color: white;
+  padding:10px;
+  font-size:20pt;
+}
+
+.transit-enter-active {
+  transition: opacity 0.5s;
+}
+.transit-leave-active {
+  transition: opacity 5.0s;
+}
+.transit-enter {
+  opacity: 0;
+}
+.transit-enter-from {
+  opacity: 0;
+}
+.transit-enter-to {
+  opacity: 1.0;
+}
+.transit-leave {
+  opacity: 1.0;
+}
+.transit-leave-to {
+  opacity: 0;
+}
+
+……他は省略……
+</style>
+
+
+
+--------------------------
+
+■リスト4-31
+<template>
+  <div class="hello">
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+    <hr/>
+    <button v-on:click="doAction">
+    {{btn}}
+    </button>
+    <transition name="transit" 
+        v-on:before-enter="startAction"
+        v-on:before-leave="startAction"
+        v-on:after-enter="endAction" 
+        v-on:after-leave="endAction">
+      <p v-if="flg" class="trans">Transition!</p>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    title:String,
+  },
+  data: function() {
+    return {
+      message:'Transition Sample!',
+      flg:true,
+      btn:'Hide',
+    }
+  },
+  methods:{
+    doAction: function(){
+      this.flg = !this.flg
+    },
+    startAction: function(){
+      if (this.flg){
+        this.message = '現れます……'
+      } else {
+        this.message = '消えます……'
+      }
+    },
+    endAction: function(){
+      if (this.flg){
+        this.btn = 'Hide'
+        this.message = '現れました。'
+      } else {
+        this.btn = 'Show'
+        this.message = '消えました。'
+      }
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト4-32
+<template>
+  <div class="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+    <button class="btn btn-primary mb-3"
+      v-on:click="doAction">
+    Show/Hide
+    </button>
+    <transition name="transit">
+      <p v-if="flg" class="trans">Transition!</p>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data: function() {
+    return {
+      title:'Trans&Anim',
+      message:'Transition Sample!',
+      flg:true,
+      btn:'Hide',
+    }
+  },
+  methods:{
+    doAction() {
+      this.flg = !this.flg;
+    },
+  },
+}
+</script>
+
+<style>
+.transit-enter-active {
+  transition: 1.0s;
+}
+.transit-leave-active {
+  transition: 1.0s;
+  opacity: 0.5;
+}
+
+…….transit-〇〇というクラスは上記以外削除……
+……それ以外のクラスは、そのまま残す……
+</style>
+
+
+
+--------------------------
+
+■リスト4-33
+.transit-enter, .transit-leave-to {
+ transform: translateX(200px) translateY(-200px);
+ opacity: 0.1;
+}
+
+
+
+--------------------------
+
+■リスト4-34
+.transit-enter, .transit-leave-to {
+  transform: scale(5.0);
+  opacity: 0.1;
+}
+
+
+
+--------------------------
+
+■リスト4-35
+.transit-enter, .transit-leave-to {
+ transform: rotateZ(360deg);
+ opacity: 0.1;
+}
+
+
+
+--------------------------
+
+■リスト4-36
+.transit-leave-active {
+  animation: anim 5.0s;
+}
+.transit-enter-active {
+  animation: anim 2.5s reverse;
+}
+
+@keyframes anim {
+  0% {
+    transform: translateX(0px) translateY(0px) rotateZ(0deg);
+    opacity:1.0;
+    background-color: #ddf;
+  }
+  25% {
+    transform: translateX(250px) translateY(0px) rotateZ(0deg);
+    opacity:1.0;
+    background-color: #fdd;
+  }
+  50% {
+    transform: translateX(0px) translateY(-100px) rotateZ(540deg);
+    opacity:1.0;
+    background-color: #dfd;
+    }
+  75% {
+    transform: translateX(250px) translateY(-100px) rotateZ(540deg);
+    opacity:1.0;
+    background-color: #fdf;
+  }
+  100% {
+    transform: translateX(0px) translateY(-200px) rotateZ(1080deg);
+    opacity:0;
+    background-color: #ffd;
+  }
+}
+
+
+
+--------------------------
+■5章
+--------------------------
+
+■リスト5-1
+<template>
+  <div class="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p>{{msg}}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    title: String,
+    msg: String
+  },
+  setup(props) {
+    console.log(props)
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-2
+<template>
+  <div id="app">
+    <HelloWorld title="Composition API"
+      msg="This is Composition API sample."/>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-3
+export default {
+  name: 'HelloJSX',
+  props: {
+    title: String,
+    msg: String
+  },
+  setup(props) {
+    return () => <div class="alert alert-primary">
+      <h1>{props.title}</h1>
+      <p>{props.msg}</p>
+    </div>
+  }
+}
+
+
+
+--------------------------
+
+■リスト5-4
+<template>
+  <div id="app">
+    <HelloJSX title="Composition API"
+      msg="This is Composition API sample."/>
+  </div>
+</template>
+
+<script>
+import HelloJSX from './components/HelloJSX.jsx'
+
+export default {
+  name: 'app',
+  components: {
+    HelloJSX
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-5
+<script>
+import { h, ref } from 'vue'
+
+export default {
+  props: {
+    title: String,
+    msg: String
+  },
+  setup(props) {
+    return ()=> h('div',{class:'alert alert-primary'}, [
+      h('h1', props.title),
+      h('p', props.msg)
+    ])
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-6
+<template>
+  <div class="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p>{{data.msg}} ( {{data.count}} )</p>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  props: {
+    title: String
+  },
+  setup(props) {
+    const data = ref({
+      msg: 'This is ref-value!',
+      count: 0
+    })
+    setInterval(()=>{
+      data.value.count++
+    }, 1000)
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-7
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  props: {
+    title: String
+  },
+  setup(props) {
+    const data = reactive({
+      msg: 'This is ref-value!',
+      count: 0
+    })
+    setInterval(()=>{
+      data.count++
+    }, 1000)
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-8
+<template>
+  <div class="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p class="h5">{{data.msg}}</p>
+    <div>
+      <input type="number" v-model="data.num"
+        min="0" class="form-control">
+    </div>
+    <button class="btn btn-primary m-3"
+      v-on:click="action">Click</button>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  props: {
+    title: String
+  },
+  setup(props) {
+    const data = reactive({
+      msg: 'This is ref-value!',
+      num: 0
+    })
+    const action = ()=> {
+      let total = 0
+      for(let i = 1;i <= data.num;i++) {
+        total += i
+      }
+      data.msg = "Total: " + total
+    }
+    return {
+      data, action
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-9
+<template>
+  <div class="alert alert-primary">
+    <h1>{{title}}</h1>
+    <p class="mt-3 h5">{{data.msg}}</p>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  props: {
+    title: String
+  },
+  setup(props, context) {
+    const data = reactive({
+      msg: 'This is ref-value!',
+    })
+    data.msg = context.attrs['msg'].toUpperCase()
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-10
+<template>
+  <div id="app">
+    <HelloWorld title="Composition API"
+      msg="This is Composition API sample."/>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト5-11――HelloWorld.vue
+<template>
+  <div class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p class="mt-3 h5">{{data.msg}}</p>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  name: 'HelloWorld',
+  setup(props, context) {
+    const data = reactive({
+      title:'HelloWorld',
+      msg: 'This is HelloWorld component.',
+    })
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-12――HelloJSX.jsx
+import { ref, reactive } from 'vue'
+
+export default {
+  name: 'HelloJSX',
+  setup(props) {
+    const data = reactive({
+      title:'HelloJSX',
+      msg: 'This is JSX component sample.',
+    })
+    return () => (
+      <div class="alert alert-warning">
+        <h1>{data.title}</h1>
+        <p>{data.msg}</p>
+      </div>
+    )
+  }
+}
+
+
+
+--------------------------
+
+■リスト5-13
+import { createRouter, createWebHistory } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+import HelloJSX from './components/HelloJSX.jsx'
+
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: HelloWorld,
+    },
+    {
+      path: '/jsx',
+      name: 'jsx',
+      component: HelloJSX,
+    },
+  ],
+})
+
+
+
+--------------------------
+
+■リスト5-14
+import { createApp } from 'vue'
+import App from './App.vue'
+import './index.css'
+import { router } from './router'
+
+var app = createApp(App)
+app.use(router)
+app.mount('#app')
+
+
+
+--------------------------
+
+■リスト5-15
+<template>
+  <div id="app">
+    <div>
+      <router-link to="/" class="btn btn-primary mx-2">
+        Go to Top
+      </router-link>
+      <router-link to="/jsx" class="btn btn-warning">
+        Go to JSX
+      </router-link>
+    </div>
+    <hr>
+    <router-view></router-view>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'app',
+  created() {
+    console.log("***** App Created! *****")
+  },
+  mounted() {
+    console.log("----- App Mounted! -----")
+  },
+  data() {
+    return {
+      title:'Router'
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-16
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      name: 'index',
+      components:{
+        default: HelloWorld,
+        first: HelloWorld,
+        second:HelloJSX
+      },
+    },
+    {
+      path: '/jsx',
+      name: 'jsx',
+      components:{
+        default: HelloJSX,
+        first: HelloJSX,
+        second:HelloWorld
+      },
+    },
+  ],
+})
+
+
+
+--------------------------
+
+■リスト5-17
+<template>
+  <div id="app">
+    <div>
+      <router-link to="/" class="btn btn-primary mx-2">
+        Go to Top
+      </router-link>
+      <router-link to="/jsx" class="btn btn-warning">
+        Go to JSX
+      </router-link>
+    </div>
+    <hr>
+    <h5>default view</h5>
+    <router-view/>
+    <hr>
+    <h5>A & B</h5>
+    <router-view name="first"></router-view>
+    <router-view name="second"></router-view>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト5-18――HelloWorld.vue
+<template>
+  <div class="alert alert-primary">
+    <h1>{{data.title + ' [' + name + ']'}}</h1>
+    <p class="mt-3 h5">{{data.msg}}</p>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  name: 'HelloWorld',
+  props:{
+    name: String,
+   },
+  setup(props, context) {
+    const data = reactive({
+      title: 'Router',
+      msg: 'This is HelloWorld component.',
+    })
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-19――HelloJSX.jsx
+import { ref, reactive } from 'vue'
+
+export default {
+  name: 'HelloJSX',
+  props:{
+    name: String
+  },
+  setup(props) {
+    const data = reactive({
+      title: 'Router',
+      msg: 'This is JSX component sample.',
+    })
+    return () => (
+      <div class="alert alert-warning">
+        <h1>{data.title} [{props.name}]</h1>
+        <p>{data.msg}</p>
+      </div>
+    )
+  }
+}
+
+
+
+--------------------------
+
+■リスト5-20
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      redirect: '/index/taro'
+    },
+    {
+      path: '/index/:name',
+      name: 'index',
+      component: HelloWorld,
+      props: true
+    },
+    {
+      path: '/jsx/:name',
+      name: 'jsx',
+      component: HelloJSX,
+      props: true
+    },
+  ],
+})
+
+
+
+--------------------------
+
+■リスト5-21
+<template>
+  <div id="app">
+    <div>
+      <router-link to="/index/taro" class="btn btn-primary mx-2">
+        Go to Top
+      </router-link>
+      <router-link to="/jsx/hanako" class="btn btn-warning">
+        Go to JSX
+      </router-link>
+    </div>
+    <hr>
+    <router-view></router-view>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト5-22
+<router-link :to="{name:'index', params:{name:'TARO'}}" 
+  class="btn btn-primary mx-2">
+  Go to Top
+</router-link>
+<router-link :to="{name:'jsx', params:{name:'HANAKO'}}" 
+  class="btn btn-warning">
+  Go to JSX
+</router-link>
+
+
+
+--------------------------
+
+■リスト5-23
+import { createStore } from 'vuex'
+ 
+export const store = createStore({
+  state () {
+    return {
+      message: 'This is store data.'
+    }
+  }
+})
+
+
+
+--------------------------
+
+■リスト5-24
+import { createApp } from 'vue'
+import App from './App.vue'
+import './index.css'
+import { store } from './store.js'
+
+var app = createApp(App)
+app.use(store)
+app.mount('#app')
+
+
+
+--------------------------
+
+■リスト5-25
+<template>
+  <div id="app">
+    <HelloWorld/>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'app',
+  components: {
+    HelloWorld
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-26
+<template>
+  <div class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p class="mt-3 h5">{{$store.state.message}}</p>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title: 'Vuex',
+    })
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-27
+import { createStore } from 'vuex'
+ 
+export const store = createStore({
+  state () {
+    return {
+      message: 'This is store data.',
+      counter: 0,
+    }
+  },
+  mutations: {
+    count: (state)=> {
+      state.counter++
+    },
+    reset: (state)=> {
+        state.counter = 0
+    }
+  },
+})
+
+
+
+--------------------------
+
+■リスト5-28
+<template>
+  <div class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p class="mt-3 h5">{{$store.state.message}}</p>
+    <hr>
+    <div class="btn btn-secondary"
+      @click="$store.commit('count')"
+      @click.ctrl="$store.commit('reset')">
+      <a class="h5">
+        clicked: {{ $store.state.counter }}
+      </a>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref, reactive } from 'vue'
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title: 'Vuex',
+    })
+    return {
+      data
+    }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-29
+mutations: {
+  count: (state, n)=> {
+    state.counter+= n
+  },
+  reset: (state)=> {
+      state.counter = 0
+  }
+},
+
+
+
+--------------------------
+
+■リスト5-30
+<div class="alert alert-dark"
+  @click.exact="$store.commit('count',1)"
+  @click.shift="$store.commit('count',2)"
+  @click.ctrl="$store.commit('count',3)">
+  <a class="h5" 
+    @click.stop="$store.commit('reset')">
+    clicked: {{ $store.state.counter }}
+  </a>
+</div>
+
+
+
+--------------------------
+
+■リスト5-31
+mutations: {
+  count: (state, obj)=> {
+    state.message =obj.message
+    state.counter += obj.add
+  },
+  reset: (state)=> {
+    state.message = "reset!"
+    state.counter = 0
+  }  
+},
+
+
+
+--------------------------
+
+■リスト5-32
+<div class="alert alert-secondary"
+    @click.exact="$store.commit({type:'count', message:'add 1!', add:1})"
+    @click.shift.exact="$store.commit({type:'count', message:'add 5!', add:5})"
+    @click.ctrl.exact="$store.commit({type:'count', message:'add 10!', add:10})">
+  <a @click.stop="$store.commit('reset')">
+    clicked: {{ $store.state.counter }}
+  </a>
+</div>
+
+
+
+--------------------------
+
+■リスト5-33
+import { createStore } from 'vuex'
+
+export const store = createStore({
+  state: ()=> {
+      return {
+          message: 'count number.',
+          counter: 0,
+      }
+  },
+  mutations: {
+    count: (state, n)=> {
+      state.counter += n
+    },
+    say: (state, msg)=> {
+      state.message =msg
+    },
+    reset: (state)=> {
+        state.counter = 0
+        state.message ='reset!!'
+    },
+  },
+  actions: {
+    doit: (context)=> {
+      var n = Math.floor(Math.random() * 10)
+      context.commit('count', n)
+      context.commit('say', 'add ' + n + '!')
+    },
+  }
+})
+
+
+
+--------------------------
+
+■リスト5-34
+<div class="alert alert-secondary"
+  @click="$store.dispatch('doit')">
+  <a class="h5" 
+    @click.stop="$store.commit('reset')">
+    clicked: {{ $store.state.counter }}
+  </a>
+</div>
+
+
+
+--------------------------
+
+■リスト5-35
+<script src="https://unpkg.com/vuex-persistedstate/dist/vuex-persistedstate.umd.js"></script>
+
+
+
+--------------------------
+
+■リスト5-36
+import { createStore } from 'vuex'
+import createPersistedState from "vuex-persistedstate"
+
+export const store = createStore({
+  state: ()=> {
+      return {
+          message: 'count number.',
+          counter: 0,
+      }
+  },
+  mutations: {
+    doit: (state)=> {
+      var n = Math.floor(Math.random() * 10)
+      state.counter += n
+      state.message = 'add ' + n + '.';
+    },
+    reset: (state)=> {
+      state.counter = 0;
+      state.message = "reset now."
+    },
+  },
+  plugins: [
+    createPersistedState(),
+  ],
+})
+
+
+
+--------------------------
+
+■リスト5-37
+<template>
+  <div class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p class="mt-3 h5">{{$store.state.message}}</p>
+    <hr>
+    <div class="alert alert-dark"
+        @click="$store.commit('doit')">
+      <a class="h5"
+        @click.stop="$store.commit('reset')">
+        clicked: {{ $store.state.counter }}
+      </a>
+    </div>
+  </div>
+</template>
+
+
+
+--------------------------
+
+■リスト5-38
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 class="bg-secondary text-white h4 p-3">Memo_app</h1>
+  <div class="container">
+    <div id="app"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
+
+
+
+--------------------------
+
+■リスト5-39
+import { createApp } from 'vue'
+import App from './App.vue'
+import './index.css'
+import { store } from './store'
+
+var app = createApp(App)
+app.use(store)
+app.mount('#app')
+
+
+
+--------------------------
+
+■リスト5-40
+<template>
+  <Memo />
+</template>
+
+<script>
+import Memo from './components/Memo.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Memo
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト5-41
+import { createStore } from 'vuex'
+import createPersistedState from "vuex-persistedstate"
+
+export const store = createStore({
+  state: ()=> {
+    return {
+      memo: [],
+      page: 0,
+    }
+  },
+  mutations: {
+    insert: (state, obj)=> {
+      var d = new Date()
+      var fmt = d.getFullYear() + '-' + (d.getMonth() + 1)
+          + '-' + d.getDate() + ' ' + d.getHours() + ':'
+          + d.getMinutes()
+      state.memo.unshift({
+          title: obj.title,
+          content: obj.content,
+          created: fmt
+      })
+    },
+  
+    set_page: (state, p)=> {
+      state.page = p;
+    },
+    
+    remove: (state, obj)=> {
+      for (let i = 0; i < state.memo.length; i++) {
+        const ob = state.memo[i]
+        if (ob.title == obj.title 
+              && ob.content == obj.content
+              && ob.created == obj.created){
+          alert('remove it! --' + ob.title)
+          state.memo.splice(i, 1)
+          return
+        }
+      }
+    },
+  },
+  plugins: [
+    createPersistedState(),
+  ],
+})
+
+
+
+--------------------------
+
+■リスト5-42
+<template>
+  <section class="alert alert-primary">
+    <div class="form-control-group row">
+      <label class="col-12 text-left h5">Title</label>
+      <input type="text" name="title" 
+        class="form-control col-9 ml-2"
+        v-model="data.title" @focus="set_flg">
+      <button @click="find" class="btn btn-primary col-2 ml-2">
+        find</button>
+    </div>
+    <div class="form-control-group mt-3">
+      <label class="col-12 text-left h5">Memo</label>
+      <textarea name="content" class="form-control"
+        v-model="data.content"></textarea>
+    </div>
+    <div>
+      <button class="btn btn-info m-2" @click="insert">save</button>
+      <transition name="del">
+        <button class="btn btn-info m-2" v-if="data.sel_flg != false" 
+            @click="remove">delete</button>
+      </transition>
+    </div>
+    <ul class="list-group">
+      <li v-for="item in page_items" 
+        @click="select(item)"
+        class="list-group-item list-group-item-action text-left">
+        {{ item.title }} ({{ item.created }})
+      </li>
+    </ul>
+    <hr>
+    <div>
+      <span class="btn btn-secondary mr-2" @click="prev">&lt; prev</span>
+      <span class="btn btn-secondary ml-2" @click="next">next &gt;</span>
+    </div>
+  </section>
+</template>
+
+<script>
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+
+export default {
+  setup(props) {
+    // リアクティブデータ
+    const data = reactive({
+      title:'',
+      content:'',
+      num_per_page:5,
+      find_flg: false,
+      sel_flg: false,
+      sel_item: null,
+      store: useStore(),
+    })
+    
+    // フラグの初期化
+    const set_flg = ()=> {
+      if (data.find_flg.value || data.sel_flg != false){
+          data.find_flg = false
+          data.sel_flg = false
+          data.title = ''
+          data.content = ''
+      }
+    }
+
+    // 項目の選択
+    const select = (item)=> {
+      data.find_flg = false
+      data.sel_flg = true
+      data.title = item.title
+      data.content = item.content
+      data.sel_item = item
+    }
+
+    // 検索の設定
+    const find = ()=> {
+      data.sel_flg = false
+      data.find_flg = true
+    }
+
+    // メモの追加
+    const insert = ()=> {
+      data.store.commit('insert', 
+        {title:data.title, 
+          content:data.content})
+      data.title = ''
+      data.content = ''
+    }
+
+    // 選択項目の削除
+    const remove = ()=> {
+      if (data.sel_flg){
+        data.store.commit('remove', data.sel_item)
+        set_flg()
+      }
+    }
+
+    // 次のページ
+    const next = ()=> {
+      page.value++
+    }
+
+    // 前のページ
+    const prev = ()=> {
+        page.value--
+    }
+
+    // メモ全体
+    const memo =computed(()=> data.store.state.memo)
+
+    // ページの表示項目
+    const page_items = computed(function() {
+      if (data.find_flg){
+        var arr = []
+        var rec = data.store.state.memo
+        rec.forEach(element => {
+          console.log()
+            if (element.title.toLowerCase().indexOf
+                (data.title.toLowerCase()) >= 0){
+              arr.push(element)
+            }
+        })
+        return arr
+      } else {
+        return data.store.state.memo.slice(
+          data.num_per_page * data.store.state.page, 
+          data.num_per_page * (data.store.state.page + 1))
+      }
+    })
+
+    //表示ページを表す値
+    const page = computed({
+      get: ()=> {
+        return data.store.state.page
+      },
+      set: (p)=> {
+        var pg = p > (data.store.state.memo.length - 1)
+          / data.num_per_page ? 
+          Math.ceil((data.store.state.memo.length - 1)
+          / data.num_per_page) - 1 : p
+        pg = pg < 0 ? 0 : pg
+        data.store.commit('set_page', pg)
+      }
+    })
+
+    // マウント時の処理
+    onMounted(()=>{
+      data.store.commit('set_page',0)
+    })
+    // 戻り値
+    return { 
+      data, set_flg, select, find, 
+      insert, remove, next, prev, 
+      memo, page_items, page,
+    }
+  },
+}
+</script>
+
+
+
+--------------------------
+■6章
+--------------------------
+
+■リスト6-1
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <textarea v-model="data.mydata" rows="5"
+      class="form-control"></textarea>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { reactive, onMounted } from 'vue'
+
+const url = "/data.txt"
+      
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Axios',
+      message:'This is axios sample.',
+      mydata: '',
+    })
+    const getData = async()=> {
+      let result = await axios.get(url)
+      data.mydata = result.data
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-2
+const getData = ()=> {
+  const url = "/data.txt"
+  axios.get(url).then((result)=> {
+    data.mydata = result.data
+  })
+}
+
+
+
+--------------------------
+
+■リスト6-3
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <table class="table table-light table-striped">
+      <tbody class="text-left">
+      <tr>
+        <th style="width:200px;">User ID</th>
+        <td>{{data.json_data ? data.json_data.userId : '-'}}</td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td>{{data.json_data ? data.json_data.id : '-'}}</td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td>{{data.json_data ? data.json_data.title : '-'}}</td>
+      </tr>
+      <tr>
+        <th>Body</th>
+        <td>{{data.json_data ? data.json_data.body : '-'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { reactive, onMounted } from 'vue'
+
+let url = "https://jsonplaceholder.typicode.com/posts/"
+      
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Axios',
+      message:'This is axios sample.',
+      json_data: null,
+    })
+    const getData = ()=> {
+      let id = 1 // ☆id番号
+      axios.get(url + id).then((result)=> {
+        console.log(result.data)
+        data.json_data = result.data
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-4
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="form-group">
+      <input type="number" class="form-control"
+        v-model="data.id" />
+      <button class="btn btn-primary m-2"
+        @click="doClick">Click</button>
+    </div>
+    <table class="table table-light table-striped">
+      <tbody class="text-left">
+      <tr>
+        <th style="width:200px;">User ID</th>
+        <td>{{data.json_data ? data.json_data.userId : '-'}}</td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td>{{data.json_data ? data.json_data.id : '-'}}</td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td>{{data.json_data ? data.json_data.title : '-'}}</td>
+      </tr>
+      <tr>
+        <th>Body</th>
+        <td>{{data.json_data ? data.json_data.body : '-'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { reactive } from 'vue'
+
+let url = "https://jsonplaceholder.typicode.com/posts/"
+      
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Axios',
+      message:'This is axios sample.',
+      id:0,
+      json_data: null,
+    })
+    const doClick = ()=> {
+      axios.get(url + data.id).then((result)=> {
+        data.json_data = result.data
+      })
+    }
+    return { data, doClick }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-5
+const doClick = ()=> {
+  axios.get(url + data.id).then((result)=> {
+    data.json_data = result.data
+  }).catch((error)=>{
+    data.message = 'ERROR!'
+    data.json_data = null
+  })
+}
+
+
+
+--------------------------
+
+■リスト6-6
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <table class="table table-light table-striped">
+      <thead class="table-dark text-center">
+        <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
+      </thead>
+      <tbody class="text-left">
+      <tr v-for="(item, key) in data.fire_data">
+        <td>{{item.name}}</td>
+        <td>{{item.age}}</td>
+        <td>{{key}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { onMounted, reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person.json" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      fire_data: null,
+    })
+    const getData = ()=> {
+      axios.get(url).then((result)=> {
+        data.fire_data = result.data
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-7
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="form-inline my-2">
+      <input type="text" v-model="data.find"
+        class="form-control">
+      <button @click="getData" class="btn btn-primary">
+        Click</button>
+    </div>
+    <div class="alert alert-light">
+      {{data.fire_data}}
+    </div>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { onMounted, reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person/" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      find: '',
+      fire_data: {},
+    })
+    const getData = ()=> {
+      let id_url = url + data.find + '.json'
+      axios.get(id_url).then((result) => {
+        data.message = 'get ID=' + data.find
+        if (result.data != null) {
+          data.fire_data = result.data
+        } else {
+          data.fire_data = 'no data found...'
+        }
+      }).catch((error)=>{
+        data.message = 'ERROR!'
+        data.fire_data = {}
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-8
+{
+  "rules": {
+    ".read": "now < 160……略……",  // 年-月-日
+    ".write": "now < 160……略……",  // 年-月-日
+  }
+}
+
+
+
+--------------------------
+
+■リスト6-9
+{
+  "rules": {
+    "person": {
+        ".indexOn":["name","tel","age"]
+    },
+    ".read": "now < 160……略……",  // 年-月-日
+    ".write": "now < 160……略……",  // 年-月-日
+  }
+}
+
+
+
+--------------------------
+
+■リスト6-10
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="form-inline my-2">
+      <input type="text" v-model="data.find"
+        class="form-control">
+      <button @click="getData" class="btn btn-primary">
+        Click</button>
+    </div>
+    <div class="alert alert-light">
+      {{data.fire_data}}
+    </div>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { onMounted, reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person.json?orderBy=%22$key%22&equalTo=%22" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      find: '',
+      fire_data: {},
+    })
+    const getData = ()=> {
+      let id_url = url + data.find + '%22'
+      axios.get(id_url).then((result) => {
+        data.message = 'get ID=' + data.find
+        if (result.data != null) {
+          data.fire_data = result.data
+        } else {
+          data.fire_data = 'no data found...'
+        }
+      }).catch((error)=>{
+        data.message = 'ERROR!'
+        data.fire_data = {}
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-11
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="form-inline my-2">
+      <input type="text" v-model="data.find"
+        class="form-control">
+      <button @click="getData" class="btn btn-primary">
+        Click</button>
+    </div>
+    <ul v-for="(item, key) in data.fire_data"
+        class="list-group">
+      <li class="list-group-item text-left">
+        <strong>{{key}}</strong><br>{{item}}</li>
+    </ul>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person.json?orderBy=%22age%22" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      find: '',
+      fire_data: {},
+    })
+    const getData = ()=> {
+      let range = data.find.split(',')
+      let age_url = url + "&startAt=" + range[0] 
+          + "&endAt=" + range[1]
+      axios.get(age_url).then((result) => {
+        data.message = 'get ID=' + data.find
+        if (result.data != null) {
+          data.fire_data = result.data
+        } else {
+          data.fire_data = 'no data found...'
+        }
+      }).catch((error)=>{
+        data.message = 'ERROR!'
+        data.fire_data = {}
+      })
+    }
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-12
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="text-left">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" v-model="data.email"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" v-model="data.username"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Age</label>
+      <input type="number" v-model="data.age"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Tel</label>
+      <input type="text" v-model="data.tel"
+        class="form-control">
+    </div>
+    <button @click="addData" 
+      class="btn btn-primary my-3">
+      Click</button>
+    </div>
+    <ul v-for="(item, key) in data.fire_data"
+        class="list-group">
+      <li class="list-group-item text-left">
+        <strong>{{key}}</strong><br>{{item}}</li>
+    </ul>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { onMounted, reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      email:'',
+      username:'',
+      tel:'',
+      age:0,
+      fire_data: {},
+    })
+    const addData = ()=> {
+      if (data.username == '') {
+        console.log('no-username!')
+        return
+      }
+      let add_url = url + '/' + data.email + '.json'
+      let item = {
+        'name': data.username,
+        'age': data.age,
+        'tel': data.tel
+      }
+      axios.put(add_url, item).then((re)=>{
+        data.email = ''
+        data.username = ''
+        data.age = 0
+        data.tel = ''
+        getData()
+      })
+    }
+    const getData = ()=> {
+      let all_url = url + ".json"
+      axios.get(all_url).then((result) => {
+        data.message = 'get all data.'
+        data.fire_data = result.data
+      }).catch((error)=>{
+        data.message = 'ERROR!'
+        data.fire_data = {}
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, addData, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-13
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <div class="text-left">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" v-model="data.email"
+        class="form-control">
+    </div>
+    <button @click="delData" 
+      class="btn btn-primary my-3">
+      Click</button>
+    </div>
+    <ul v-for="(item, key) in data.fire_data"
+        class="list-group">
+      <li class="list-group-item text-left">
+        <strong>{{key}}</strong><br>{{item}}</li>
+    </ul>
+  </section>
+</template>
+
+<script>
+import axios from 'axios'
+import { onMounted, reactive } from 'vue'
+
+let url = "https://プロジェクト.firebaseio.com/person" //☆
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      email:'',
+      fire_data: {},
+    })
+    const delData =()=> {
+      if (data.email == '') {
+        console.log('no-username!')
+        return
+      }
+      let del_url = url + '/' + data.email + '.json'
+      axios.delete(del_url).then((re)=>{
+        data.message = data.email + 'を削除しました。'
+        data.email = ''
+        getData()
+      })
+    }
+    const getData = ()=> {
+      let all_url = url + ".json"
+      axios.get(all_url).then((result) => {
+        data.fire_data = result.data
+      }).catch((error)=>{
+        data.message = 'ERROR!'
+        data.fire_data = {}
+      })
+    }
+    onMounted(()=> {
+      data.message = 'get all data.'
+      getData()
+    })
+    return { data, delData, getData }
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-14
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 class="bg-secondary text-white h4 p-3">Vue3 Vite</h1>
+  <div class="container">
+    <div id="app"></div>
+  </div>
+
+  <!-- Firebase SDKの記述 -->
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-database.js"></script>
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "APIキー",
+    authDomain: "プロジェクト.firebaseapp.com",
+    databaseURL: "https://プロジェクト.firebaseio.com",
+    projectId: "プロジェクト",
+    storageBucket: "プロジェクト.appspot.com",
+    messagingSenderId: "メッセージID"
+    appId: "アプリケーションID"
+  }
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig)
+  </script>
+  <!-- Firebase SDK ここまで -->
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
+
+
+
+--------------------------
+
+■リスト6-15
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <table class="table table-light table-striped">
+      <thead class="text-center">
+        <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
+      </thead>
+      <tbody class="text-left">
+      <tr v-for="(data, key) in data.fire_data">
+        <td>{{data.name}}</td>
+        <td>{{data.age}}</td>
+        <td>{{key}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</template>
+
+<script>
+import { onMounted, reactive } from 'vue'
+
+const person = firebase.database().ref('person/')
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      id:0,
+      fire_data: null,
+    })
+    const getData = ()=> {
+      person.once('value', (snapshot)=>{
+        data.fire_data = snapshot.val()
+      })
+    }
+    onMounted(()=> {
+      getData()
+    })
+    return { data, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-16
+<script>
+import { onMounted, reactive } from 'vue'
+import firebase from 'firebase'
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "APIキー",
+  authDomain: "プロジェクト.firebaseapp.com",
+  databaseURL: "https://プロジェクト.firebaseio.com",
+  projectId: "プロジェクト",
+  storageBucket: "プロジェクト.appspot.com",
+  messagingSenderId: "メッセージID"
+  appId: "アプリケーションID"
+}
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+
+const person = firebase.database().ref('person/')
+
+
+
+--------------------------
+
+■リスト6-17
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+  </section>
+</template>
+
+<script>
+import { onMounted, reactive } from 'vue'
+import firebase from 'firebase'
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "APIキー",
+  authDomain: "プロジェクト.firebaseapp.com",
+  databaseURL: "https://プロジェクト.firebaseio.com",
+  projectId: "プロジェクト",
+  storageBucket: "プロジェクト.appspot.com",
+  messagingSenderId: "メッセージID"
+  appId: "アプリケーションID"
+}
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+
+const person = firebase.database().ref('person/')
+var provider = new firebase.auth.GoogleAuthProvider()
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      id:0,
+      fire_data: null,
+    })
+    const authNow = ()=> {
+      firebase.auth().signInWithPopup(provider)
+        .then((result)=> {
+          data.message = result.user.displayName + ', ' 
+            + result.user.email
+        })
+    }
+    onMounted(()=> {
+      authNow()
+    })
+    return { data, authNow }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-18
+{
+  "rules": {
+    "person" : {
+            ".indexOn":["name","tel","age"]
+    },
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+
+
+
+--------------------------
+
+■リスト6-19
+<template>
+  <section class="alert alert-primary">
+    <h1>{{data.title}}</h1>
+    <p>{{data.message}}</p>
+    <table class="table table-light table-striped">
+      <thead class="text-center">
+        <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
+      </thead>
+      <tbody class="text-left">
+      <tr v-for="(data, key) in data.fire_data">
+        <td>{{data.name}}</td>
+        <td>{{data.age}}</td>
+        <td>{{key}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</template>
+
+<script>
+import { onMounted, reactive } from 'vue'
+import firebase from 'firebase'
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "APIキー",
+    authDomain: "プロジェクト.firebaseapp.com",
+    databaseURL: "https://プロジェクト.firebaseio.com",
+    projectId: "プロジェクト",
+    storageBucket: "プロジェクト.appspot.com",
+    messagingSenderId: "メッセージID",
+    appId: "アプリケーションID"
+}
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+
+var provider = new firebase.auth.GoogleAuthProvider()
+const person = firebase.database().ref('person/')
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Firebase',
+      message:'This is Firebase sample.',
+      fire_data: null,
+    })
+    const authNow = ()=> {
+      firebase.auth().signInWithPopup(provider)
+        .then((result)=> {
+          data.message = result.user.displayName + ', ' 
+            + result.user.email
+          getData()
+        })
+    }
+    const getData = ()=> {
+      person.once('value', (snapshot)=>{
+        let res = snapshot.val()
+        data.fire_data = res
+      })
+    }
+    onMounted(()=> {
+      authNow()
+    })
+    return { data, authNow, getData }
+  },
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-20
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <h1 class="bg-secondary text-white h4 p-3">Board_app</h1>
+  <div class="container">
+    <div id="app"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
+
+
+
+--------------------------
+
+■リスト6-21
+<template>
+  <Board />
+</template>
+
+<script>
+import Board from './components/Board.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Board
+  }
+}
+</script>
+
+
+
+--------------------------
+
+■リスト6-22
+<template>
+  <section>
+    <div class="alert h6 text-right" 
+      @click="doLogin">[login:{{data.user != null ? data.user.displayName : '---'}}]</div>
+    <h2>{{title}}</h2>
+    <p class="h5">{{data.message}}</p>
+    <div v-if="data.user" class="alert alert-primary">
+      <div class="form-group text-left">
+        <label class="h5">Message</label>
+        <div class="form-row">
+          <div class="col-10">
+            <input v-model="data.msg" class="form-control">
+          </div>
+          <button @click="add" class="btn btn-primary col-2">投稿</button>
+        </div>
+      </div>
+    <h3 class="my-3">Messages</h3>
+    <ul v-for="(item, key) in data.fire_data"
+        class="list-group text-left">
+      <li class="list-group-item">
+        <div class="h5">{{item.msg}}</div>
+        <div class="small text-right">{{item.user}} ({{item.posted}})</div>
+      </li>
+    </ul>
+    </div>
+    <div v-else>
+      <div class="alert alert-warning">
+        ※現在、ログインされていません。
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import { onMounted, reactive } from 'vue'
+import firebase from 'firebase'
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "APIキー",
+    authDomain: "プロジェクト.firebaseapp.com",
+    databaseURL: "https://プロジェクト.firebaseio.com",
+    projectId: "プロジェクト",
+    storageBucket: "プロジェクト.appspot.com",
+    messagingSenderId: "メッセージID",
+    appId: "アプリケーションID"
+}
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig)
+
+var provider = new firebase.auth.GoogleAuthProvider()
+const person = firebase.database().ref('board/')
+
+export default {
+  setup(props) {
+    const data = reactive({
+      title:'Board',
+      message:'ミニ伝言板。最新の投稿を表示します。',
+      user: null,
+      msg:'',
+      num_per_page:10, //☆取り出すデータ数
+      fire_data:{},
+    })
+    // ログイン処理
+    const login = ()=> {
+      firebase.auth().signInWithPopup(provider)
+          .then((result)=> {
+        data.user = result.user
+        data.message = 'ログインしました。'
+        firebase.database().ref('board')
+            .orderByKey()
+            .limitToLast(data.num_per_page)
+            .on('value', (snapshot)=> {
+          if (firebase.auth().currentUser != null){
+            let arr = []
+            let result = snapshot.val()
+            for(let item in result){
+              arr.unshift(result[item])
+            }
+            console.log(arr)
+            data.fire_data =arr
+          } else {
+            data.fire_data = {}
+          }
+        })
+      })
+    }
+    // ログアウト処理
+    const logout = ()=> {
+      firebase.auth().signOut()
+      data.user = null
+      data.fire_data = {}
+      data.message = 'ログアウトしました。'
+    }
+    // ログイン・ログアウト実行
+    const doLogin = ()=> {
+      if (firebase.auth().currentUser == null){
+        login()
+      } else {
+        logout()
+      }
+    }
+    // メッセージ追加
+    const add = ()=> {
+      if (firebase.auth().currentUser == null){
+        alert('ログインしないと投稿できません。')
+        return
+      }
+      let user = firebase.auth().currentUser
+      console.log(user)
+      let d = new Date()
+      let dstr = d.getFullYear() + '-' + (d.getMonth() + 1) + '-'
+        + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes()
+        + ':' + d.getSeconds()
+      let id = d.getTime()
+      let obj = {
+        msg: data.msg,
+        user: user.displayName,
+        posted: dstr,
+      }
+      firebase.database().ref('board/' + id).set(obj)
+      data.msg = ''
+      data.message = '投稿しました。'
+    }
+    onMounted(()=> {
+      if (firebase.auth().currentUser == null){
+        login()           
+      }
+      console.log(firebase.auth().currentUser)
+    })
+    return { data, login, logout, doLogin, add }
+  },
+}
+</script>
+
+
+
+--------------------------
+■Addendum
+--------------------------
+
+■リストA-1
+function hello(name){
+  alert('こんにちは、' + name + 'さん！')
+}
+
+hello('たろう')
+
+
+
+--------------------------
+
+■リストA-2
+function a(){
+  return "A"
+}
+function b(){
+  return "B"
+}
+
+let x = a() + b()
+
+
+
+--------------------------
+
+■リストA-3
+function a(){
+  return "hello"
+}
+
+let b = a
+let c = a()
+
+
+
+--------------------------
+
+■リストA-4
+function hello(f){
+  alert('こんにちは、' + f() + 'さん！')
+}
+
+hello(()=>{ return "太郎" })
+hello(()=> "花子" )
+
+
+
+--------------------------
+
+■リストA-5
+let ob = {
+  red:255, 
+  green:125, 
+  blue:0
+}
+
+alert(ob.red + ob.green + ob.blue)
+
+
+
+--------------------------
+
+■リストA-6
+let ob = {
+  red:255, 
+  green:125, 
+  blue:0,
+  total: function() {
+    return this.red + this.green + this.blue
+  }
+}
+
+alert(ob.total())
+
+
+
+--------------------------
+
+■リストA-7
+let ob = {
+  red:255, green:125, blue:0,
+  total(){
+    return this.red + this.green + this.blue
+  }
+}
+
+alert(ob.total())
+
+
+
+--------------------------
+
+■リストA-8
+class MyObj {
+  constructor(r, g, b){
+    this.red = r
+    this.green = g
+    this.blue = b
+  }
+
+  get total(){
+    return this.red + this.green + this.blue
+  }
+
+  get hex(){
+    return '#' + ('00' + this.red.toString(16)).substr(-2)
+        + ('00' + this.blue.toString(16)).substr(-2)
+        + ('00' + this.green.toString(16)).substr(-2)
+  }
+
+  get startP(){
+    return '<p style="background-color:' 
+        + this.hex + '">'
+  }
+
+  get endP(){
+    return '</p>'
+  }
+
+  writeP(){
+    console.log(this.startP + this.total + this.endP)
+  }
+}
+
+let ob = new MyObj(255,200,200)
+ob.writeP()
+
+let ob2 = new MyObj(0, 100, 170)
+ob2.writeP()
+
+alert(ob.total())
+
+--------------------------

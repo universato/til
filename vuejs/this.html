@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>this</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    {{ this }}
+    <Foo
+      :xyz="1234567890"
+      :xxx="this.aaaaaaaaaaaa"
+      :zzz="this"
+    >
+
+    </Foo>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          array: ["a", "b", "c"],
+          newMemo: "",
+        }
+      },
+      methods: {
+        foo() {
+          console.log("foo");
+        }
+      }
+    })
+    vm.component("Foo",{
+      template: `<div>
+      "hello"
+      <div>xyz: {{ xyz }}</div>
+      <div>xxx: {{ xxx }}</div>
+      <div>zzz: {{ zzz }}</div>
+      <div>this: {{ this }}</div>
+      </div>`,
+      props: ["xyz", "xxx", "zzz"]
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

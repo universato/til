@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Global</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    {{ d1 }}<br>
+    {{ c }}<br>
+    {{ $data }}<br>
+    {{ typeof $data }}<br>
+    {{ Object.keys($data) }}<br>
+    props {{ $props }}<br>
+    el {{ $el }}<br>
+
+    slots {{ $slots }}<br>
+    refs {{ $refs }}<br>
+    attrs {{ $attrs }}<br>
+
+    parent {{ $parent }}<br>
+    Object.keys($options) {{ Object.keys($options) }}<br>
+    options["methods"] {{ $options["methods"] }}<br>
+    options["data"] {{ $options["data"] }}<br>
+    options["computed"] {{ $options["computed"] }}<br>
+    options["template"] $options["template"]<br>
+    options["template"] typeof $options["template"]<br>
+    options["render"]  $options["render"] <br>
+    options["watch"] {{ $options["watch"] }}<br>
+
+
+
+    {{ c }}<br>
+    children Vue 2.0まで<br>
+    <input v-model="c">
+    <input v-model="w">
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          d1: 'this.d1',
+          d2: 'this.d2',
+          w: 'this.w'
+        }
+      },
+      created() {
+        this.$watch('d2', (n, o) =>{
+
+        })
+      },
+      methods: {
+        m() {
+          return "method return"
+        },
+        keys(obj) {
+          return Object.keys(obj)
+        }
+      },
+      computed: {
+        c() {
+          return "this.c";
+        },
+        c2() {
+          return this.d1;
+        }
+      },
+      watch: {
+        w(v) {
+          this.d1 = v
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

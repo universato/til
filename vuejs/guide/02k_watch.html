@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Getter Setter</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    {{ fullName }}<br>
+    {{ firstName }}<br>
+    <input v-model="firstName"><br>
+    <input v-model="fullName">
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data() {
+        return {
+          firstName: 'Foo',
+          lastName: 'Bar',
+        }
+      },
+      watch: {
+        firstName(val) {
+          this.fullName = val + ' ' + this.lastName
+        },
+        lastName(val) {
+          this.fullName = this.firstName + ' ' + val
+        }
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

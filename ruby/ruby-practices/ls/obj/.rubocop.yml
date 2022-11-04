@@ -1,0 +1,9 @@
+AllCops:
+  NewCops: enable
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+# require:
+#   - rubocop-rails
+# inherit_gem:
+#   rubocop-fjord:
+#     - "config/rubocop.yml"

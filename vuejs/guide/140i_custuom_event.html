@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div id="app">
+      {{ firstName }} {{ lastName }}<br>
+      <user-name
+        v-model:first-name="firstName"
+        v-model:last-name="lastName"
+      ></user-name>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          firstName: "Foo",
+          lastName: "Bar"
+        }
+      }
+    })
+
+    app.component('user-name', {
+      props: {
+        firstName: String,
+        lastName: String
+      },
+      emits: ['update:firstName', 'update:lastName'],
+      template: `
+        <input
+          type="text"
+          :value="firstName"
+          @input="$emit('update:firstName', $event.target.value)">
+
+        <input
+          type="text"
+          :value="lastName"
+          @input="$emit('update:lastName', $event.target.value)">
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

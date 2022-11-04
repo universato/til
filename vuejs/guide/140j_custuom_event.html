@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div id="app">
+      {{ myText }}<br>
+      <my-component v-model.capitalize="myText"></my-component>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          myText: "sssssssssssss"
+        }
+      }
+    })
+
+    app.component('my-component', {
+      props: {
+        modelValue: String,
+        modelModifiers: {
+          default: () => ({})
+        }
+      },
+      emits: ['update:modelValue'],
+      template: `
+        <input type="text"
+          :value="modelValue"
+          @input="$emit('update:modelValue', $event.target.value)">
+      `,
+      created() {
+        console.log(this.modelModifiers) // { capitalize: true }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+AllCops:
+  NewCops: enable
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+# inherit_gem:
+#   rubocop-fjord:
+#     - "config/rubocop.yml"

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div id="app">
+      <custom-form @my-event="doSomething"></custom-form>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        doSomething(event) {
+          console.log("doSomething");
+        }
+      }
+    })
+
+    app.component('custom-form', {
+      emits: ['inFocus', 'submit'],
+      template: `
+        <form>
+          <input type="text">
+          <input type="submit">
+        </form>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

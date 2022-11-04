@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: Slot</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: Slot</h1>
+
+    <div id="app">
+      <todo-button>
+        Add todo
+      </todo-button>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+    })
+
+    app.component('todo-button', {
+      template: `
+        <!-- todo-button コンポーネントのテンプレート -->
+        <button class="btn-primary">
+          <slot></slot>
+        </button>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

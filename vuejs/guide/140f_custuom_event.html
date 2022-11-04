@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <custom-form @submit="parentSubmit($event)"></custom-form>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        parentSubmit(event) {
+          console.log(event)
+          console.log("parent_submit")
+        }
+      }
+    })
+
+    app.component('custom-form', {
+      data(){
+        return {
+          email: "",
+          password: "",
+        }
+      },
+      emits: {
+        // No validation
+        click: null,
+
+        // Validate submit event
+        submit: ({ email, password }) => {
+          if (email && password) {
+            console.log(`email: ${email} password: ${password}`)
+            return true
+          } else {
+            console.warn('Invalid submit event payload!')
+            return false
+          }
+        }
+      },
+      methods: {
+        submitForm(email, password) {
+          this.$emit('submit', { email, password })
+        },
+      },
+      template: `
+        <form>
+          <label for="email">Email</label><br>
+          <input type="email" name="email" id="email" v-model="email"><br><br>
+
+          <label for="password">Password</label><br>
+          <input type="password" name="password" id="password" v-model="password"><br><br>
+
+          <button type="submit" @click.prevent="submitForm(email, password)">提出ボタン</button>
+        </form>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

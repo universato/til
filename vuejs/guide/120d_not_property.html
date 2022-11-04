@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: Not Property</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: Not Property</h1>
+    <div>これよくわからない</div>
+    <date-picker @change="submitChange"></date-picker>
+    <button @click="display">DISPLAYY</button>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      created() {
+        console.log(this.$attrs) // { onChange: () => {}  }
+      },
+      methods: {
+        display(){
+          console.log(this.$attrs)
+        }
+      }
+    })
+
+    app.component('date-picker', {
+      template: `
+        <div class="date-picker">
+          <input type="datetime-local" />
+        </div>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

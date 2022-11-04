@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Flex</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="flex.css">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div class="b">
+      <div
+        v-for="i in 50"
+        class="item"
+      >
+        {{ i }}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          array: new Array(100).map((_, i) => i)
+        }
+      },
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

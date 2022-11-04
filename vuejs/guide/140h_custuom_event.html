@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div id="app">
+      {{ bookTitle }}<br>
+      <my-component v-model:title="bookTitle"></my-component>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          bookTitle: "Foo"
+        }
+      }
+    })
+
+    app.component('my-component', {
+      props: {
+        title: String
+      },
+      emits: ['update:title'],
+      template: `
+        <input
+          type="text"
+          :value="title"
+          @input="$emit('update:title', $event.target.value)"
+        >
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

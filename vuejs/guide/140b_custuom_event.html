@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div id="app">
+      <my-component @my-event="doSomething"></my-component>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        doSomething(event) {
+          console.log("doSomething");
+        }
+      }
+    })
+
+    app.component('my-component', {
+      template: `
+        <div>
+          <button @click="emitMyEvent">EmitMyButton</button>
+        </div>
+      `,
+      methods: {
+        emitMyEvent(){
+          this.$emit('myEvent');
+          this.$emit('my-event');
+          // console.log("emit");
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

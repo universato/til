@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: Not Property</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: Not Property</h1>
+
+    <!-- Date-picker component with a non-prop attribute -->
+  <date-picker data-status="activated"></date-picker>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: {
+        showChange(event) {
+          console.log(event.target.value) // 選択された option の値が表示される
+        }
+      }
+    })
+
+    app.component('date-picker', {
+      inheritAttrs: false,
+      template: `
+        <div class="date-picker">
+          <input type="datetime-local" v-bind="$attrs" />
+        </div>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

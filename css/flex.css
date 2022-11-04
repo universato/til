@@ -1,0 +1,19 @@
+.b {
+  width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-end;
+
+  border: 1px solid #aaa;
+}
+
+.item {
+  width: 50px;
+  height: 50px;
+  /* flex-shrink: 0; */
+  border: 1px solid #eee;
+}

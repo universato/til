@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>React Practice</title>
+  <link rel="stylesheet" src="styles001.css">
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+
+  <script type="text/babel">
+    (() => {
+      const name = 'taguchi'
+      ReactDOM.render(
+        <div>
+          <p>Hello! {name.toUpperCase()}</p>
+          <p>Hello! World</p>
+        </div>,
+        document.getElementById("root")
+      )
+    })();
+  </script>
+</body>
+
+</html>

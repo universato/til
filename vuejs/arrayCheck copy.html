@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>El</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <div> {{ array }} </div>
+    <span v-for="el in array">
+      <span v-if="el=='x'"> ・ </span>
+      <span v-else-if="el">✓</span>
+      <span v-else>□</span>
+    </span>
+    <span v-for="el in array">
+      {{ el }}
+    </span>
+    <div v-for="(el, idx) in array">
+      <button @click="array[idx] = 1">111</button>
+      <button @click="array[idx] = 'x'">xxx</button>
+    </div>
+  </div>
+
+  <script>
+    const vm = Vue.createApp({
+      data(){
+        return {
+          array: new Array(5).fill(0)
+        }
+      },
+      created(){
+        console.log(JSON.stringify(this.array))
+        console.log(new Array(this.array))
+      },
+      mounted() {
+      },
+      methods: {
+      }
+    })
+    vm.mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>Vue: CustomEvent</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <div id="app">
+    <h1>Vue: CustomEvent</h1>
+
+    <div @create="createItem">
+      <h1>メモアプリ</h1>
+      <div v-for="item in memoItems">
+        {{ item }}
+      </div>
+      <memo-list :items="memoItems"></memo-list>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          memoItems: [
+              'メモ1', 'メモ2'
+          ],
+          selectedItem: [
+              'メモ1'
+          ]
+        }
+      },
+      methods: {
+        createItem() {
+          console.log('parent.createItem')
+          this.memoItems.push('新規メモ')
+        }
+      }
+    })
+
+    app.component('memo-list', {
+      props: {
+        items: {
+          type: Array,
+          required: true,
+        }
+      },
+      methods: {
+        createItem() {
+          console.log("aaaaaaaaaaaa");
+          this.$emit("create")
+          // this.changeForm()
+        },
+      },
+      template: `
+        <div class="memo-list-container">
+          <ul>
+            <li>
+              <span class="memo-item" @click="createItem">+</span>
+            </li>
+          </ul>
+        </div>
+      `
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
